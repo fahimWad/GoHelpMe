@@ -26,5 +26,5 @@ urlpatterns = [
     #Link all the urls specified under the volunteer_events application.
     path('', include('volunteer_events.urls')),
     #Link all the urls specified under the volunteer_hours_portfolio application.
-    path('', include('volunteer_hours_portfolio.urls'))
+    path('', include('volunteer_hours_portfolio.urls')),
 ]
