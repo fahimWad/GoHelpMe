@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, username, school, password=None):
+    def create_user(self, email, first_name, last_name, school, username, password=None):
         if not email:
             raise ValueError("Users must have a email address")
         if not username:
@@ -23,16 +23,18 @@ class MyAccountManager(BaseUserManager):
             username=username,
             first_name=first_name,
             last_name=last_name,
+            school=school,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
-    def create_superuser(self,email, first_name, last_name, username, password):
+    def create_superuser(self,email, first_name, last_name, school, username, password):
         user = self.create_user(
             email=self.normalize_email(email),
             username=username,
             first_name=first_name,
             last_name=last_name,
+            school=school,
         )
         user.set_password(password)
         user.is_admin = True
@@ -69,7 +71,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'school']
 
     objects = MyAccountManager()
 
