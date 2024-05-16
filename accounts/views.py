@@ -26,8 +26,10 @@ def registration_view(request):
     return render(request,'accounts/register.html', context)
 
 def logoutUser(request):
+    user = request.user
     logout(request)
-    return redirect('login')
+    context = {"user": user}
+    return redirect('login', context)
 
 @unauthenticated_user
 def login_view(request):
