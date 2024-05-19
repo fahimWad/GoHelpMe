@@ -1,0 +1,9 @@
+{% extends 'volunteer_hours_portfolio/main.html' %}
+
+{% block content %}
+<br>
+<a class="btn btn-primary btn-sm btn-block" href="{% url 'create_entry' %}">Add Event</a>
+
+{% include 'volunteer_hours_portfolio/hourslog.html' %}
+
+{% endblock %}
