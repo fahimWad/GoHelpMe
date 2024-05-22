@@ -57,8 +57,3 @@ def login_view(request):
 
 def home(request):
     return render(request, 'accounts/dashboard.html')
-
-
-
-
-
