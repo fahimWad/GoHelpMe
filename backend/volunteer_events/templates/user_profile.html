@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>{{ user.username }}'s Profile</h1>
+    
+    <h2>Events Posted</h2>
+    {% if posted_events %}
+        <ul>
+            {% for event in posted_events %}
+                <li>
+                    <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a> - {{ event.date }} at {{ event.time }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not posted any events.</p>
+    {% endif %}
+
+    <h2>Events Registered</h2>
+    {% if registered_events %}
+        <ul>
+            {% for event in registered_events %}
+                <li>
+                    <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a> - {{ event.date }} at {{ event.time }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not registered for any events.</p>
+    {% endif %}
+
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+</body>
+</html>
+
+
