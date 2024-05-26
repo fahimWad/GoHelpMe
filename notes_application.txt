@@ -1,0 +1,43 @@
+{
+    "email":"Mjluzuriaga109@gmail.com",
+    "username":"guydeong",
+    "password":"test1231241241324",
+    "first_name":"Marc",
+    "last_name":"Luzuriaga",
+    "school":"UCLA"
+}
+
+
+    # class Meta:
+    #     model = UserModel
+    #     fields = '__all__'
+    # def create(self, clean_data):
+    #     user_obj = UserModel.objects.create_user(email=clean_data['email'],
+    #                     password=clean_data['password'])
+    #     user_obj.username = clean_data['username']
+    #     user_obj.first_name = clean_data['first_name']
+    #     user_obj.last_name = clean_data['last_name']
+    #     user_obj.school = clean_data['school']
+    #     user_obj.save()
+    #     return user_obj
+
+{
+    "email":"Mjluzuriaga109@gmail.com",
+    "password":"test1231241241324"
+}
+
+
+{
+    "username":"guydeong",
+    "password":"test1231241241324"
+}
+
+{
+        "id": 1,
+        "event": "Event",
+        "date": "2024-05-12",
+        "hours": 12,
+        "role": "Marc",
+        "organizer": "UCLA",
+        "description": null
+    }

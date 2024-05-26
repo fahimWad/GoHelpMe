@@ -1,0 +1,9 @@
+.welcome-container {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0 15%; /* Adjust the value to adjust the white space on the left and right sides */
+}
+
+.welcome-message {
+    text-align: center;
+}
