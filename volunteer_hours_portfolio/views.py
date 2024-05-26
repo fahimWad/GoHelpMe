@@ -3,11 +3,16 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import *
 from .forms import EntryForm
+from .filters import VolunteerFilter
 
 def portfolio(request):
     entries = Entry.objects.all()
 
-    return render(request, 'volunteer_hours_portfolio/portfolio.html', {'entries':entries})
+    searchFilter = VolunteerFilter(request.GET,queryset=entries)
+    entries = searchFilter.qs
+    context = {'entries': entries, 'searchFilter': searchFilter}
+
+    return render(request, 'volunteer_hours_portfolio/portfolio.html', context)
 
 def createEntry(request):
     form = EntryForm()

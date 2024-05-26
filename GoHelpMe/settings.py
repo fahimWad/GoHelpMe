@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'volunteer_hours_portfolio'
+    'volunteer_hours_portfolio',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
