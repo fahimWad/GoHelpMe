@@ -1,6 +1,7 @@
 ----------------------------------------------------------------Commands---------------------------------------------------------------------------------------
 
-If you have a new clone of the project, then you must execute the following commands in your command prompt to start the application:
+If you have a new clone of the project, then you must execute the commands in the 'backend' and 'frontend' directory.
+Under the backend directory, execute the following commands in your terminal:
 
     (1) 'pip install -r requirements.txt'
 
@@ -10,7 +11,20 @@ If you have a new clone of the project, then you must execute the following comm
 
     (4) 'python manage.py runserver'
 
-If you would like to create a superuser, run the following command:
+In a SEPERATE terminal, execute the following commands under the 'frontend' directory in your terminal:
+    (1) "npm install"
+
+    (2) "npm install axios --save"
+
+    (3) "npm install react-bootstrap-validation --save"
+
+    (4) "npm i web-vitals --save-dev"
+
+    (5) "npm install --save react-bootstrap bootstrap@3"
+
+    (5) "npm start"
+
+If you would like to create a superuser, run the following command under the backend directory:
 
     'python manage.py createsuperuser'
 
@@ -20,7 +34,7 @@ If you would like to install all the packages (pip) associated with the project,
 
 You can think of the requirement.txt file as all the packages that are needed to run the project. If you do not have it installed, when you run 'python manage.py runserver', your application will throw an error saying that you don't have a specified application installed.
 
-IMPORTANT!: If you installed a new package, ensure that you update the requirements.txt. This is so that everyone doesn't have to go back and install the packages themselves. Here is how you do that. First, ensure that all the new packages you installed are in the 'INSTALLED_APPS' variable in /GoHelpMe/settings.py. Then, run the following command to update the requirements.txt:
+IMPORTANT!: If you installed a new package in the backend, ensure that you update the requirements.txt. This is so that everyone doesn't have to go back and install the packages themselves. Here is how you do that. First, ensure that all the new packages you installed are in the 'INSTALLED_APPS' variable in /GoHelpMe/settings.py. Then, run the following command to update the requirements.txt:
 
     'pip freeze > requirements.txt'
 
@@ -35,3 +49,11 @@ Recall that an application is a program that performs a specified function in ou
 (3) volunteer_hours_portfolio (Volunteer Hours Portfolio) - Evelyn and Avi
 
 If you would like to make a change to another group's directory that is not your group, please ask them before doing so as to not avoid confusion between groups.
+
+---------------------------------------------------REACT DEPENDENCIES----------------------------------------------------------------------------
+Install the following under the frontened directory:
+
+npm install axios --save
+npm install react-bootstrap-validation --save
+npm i web-vitals --save-dev
+npm install --save react-bootstrap bootstrap@3
