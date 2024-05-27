@@ -8,4 +8,5 @@ urlpatterns = [
     path('create_entry/', login_required(views.createEntry), name="create_entry"),
     path('update_entry/<str:pk>/', login_required(views.updateEntry), name="update_entry"),
     path('delete_entry/<str:pk>/', login_required(views.deleteEntry), name="delete_entry"),
+
 ]
