@@ -35,3 +35,6 @@ Recall that an application is a program that performs a specified function in ou
 (3) volunteer_hours_portfolio (Volunteer Hours Portfolio) - Evelyn and Avi
 
 If you would like to make a change to another group's directory that is not your group, please ask them before doing so as to not avoid confusion between groups.
+
+
+`pip install django`
