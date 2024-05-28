@@ -4,9 +4,25 @@ from django.http import HttpResponse
 from .models import *
 from .forms import EntryForm
 from .filters import VolunteerFilter
+from django.db.models import F
 
 def portfolio(request):
+
     entries = Entry.objects.all()
+
+    sort_by = request.GET.get('sort_by')
+    sort_order = request.GET.get('sort_order', 'asc')
+
+    if sort_by == 'date':
+        if sort_order == 'asc':
+            entries = entries.order_by('date')
+        else:
+            entries = entries.order_by('-date')
+    elif sort_by == 'hours':
+        if sort_order == 'asc':
+            entries = entries.order_by(F('hours').asc(nulls_last=True))
+        else:
+            entries = entries.order_by(F('hours').desc(nulls_last=True))
 
     searchFilter = VolunteerFilter(request.GET,queryset=entries)
     entries = searchFilter.qs

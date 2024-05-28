@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'volunteer_hours_portfolio',
-    'django_filters'
+    'django_filters',
     'volunteer_events',
 ]
 

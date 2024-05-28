@@ -7,6 +7,23 @@
 
 <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_entry' %}">Add Event</a>
 
+<form method="GET" action="{% url 'portfolio' %}">
+    <label for="sort_by">Sort by:</label>
+    <select id="sort_by" name="sort_by">
+        <option value="">--Select--</option>
+        <option value="date" {% if request.GET.sort_by == 'date' %}selected{% endif %}>Date</option>
+        <option value="hours" {% if request.GET.sort_by == 'hours' %}selected{% endif %}>Hours</option>
+    </select>
+
+    <label for="sort_order">Order:</label>
+    <select id="sort_order" name="sort_order">
+        <option value="asc" {% if request.GET.sort_order == 'asc' %}selected{% endif %}>Ascending</option>
+        <option value="desc" {% if request.GET.sort_order == 'desc' %}selected{% endif %}>Descending</option>
+    </select>
+
+    <button type="submit">Sort</button>
+</form>
+
 {% include 'volunteer_hours_portfolio/hourslog.html' %}
 
 {% endblock %}
