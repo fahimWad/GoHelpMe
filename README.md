@@ -36,5 +36,27 @@ Recall that an application is a program that performs a specified function in ou
 
 If you would like to make a change to another group's directory that is not your group, please ask them before doing so as to not avoid confusion between groups.
 
+---------------------------------------------------------Mac Troubleshooting-----------------------------------------------------------------------------------
 
-`pip install django`
+For Mac users, run the following commands to get the site working:
+
+    'python -m venv venv' (python3)
+
+    'source venv/bin/activate'
+
+    'pip install -r requirements.txt'
+
+    'pip freeze > requirements.txt'
+
+    make migrations
+
+    run server
+
+Additionally, you will need to download the following packages. You can use the command "pip freeze" to check if they are downloaded.
+
+    asgiref==3.8.1
+    Django==5.0.6
+    django-filter==24.2
+    pillow==10.3.0
+    psycopg2-binary==2.9.9
+    sqlparse==0.5.0
