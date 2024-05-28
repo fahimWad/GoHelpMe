@@ -6,3 +6,4 @@ class EntryForm(ModelForm):
     class Meta:
         model = Entry
         exclude = ['user']
+        fields = '__all__'

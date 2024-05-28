@@ -12,4 +12,5 @@ urlpatterns = [
     path('/create_entry/', views.createEntry.as_view(), name="create_entry"),
     path('/update_entry/<int:pk>/', UpdateEntry.as_view(), name="update_entry"),
     path('/delete_entry/<int:pk>/', DeleteEntry.as_view(), name="delete_entry"),
+
 ]

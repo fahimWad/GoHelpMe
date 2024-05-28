@@ -64,6 +64,7 @@ class event_detail(APIView):
 #     #    'event': event,
 #     #    'registered_users': registered_users,
 #     #    'registration_form': registration_form,
+
 class register(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
@@ -82,21 +83,7 @@ class register(APIView):
                 return Response({'message':'Already registered'},status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'message':'Event at max capacity'},status=status.HTTP_403_FORBIDDEN)
-# @login_required
-# def register_for_event(request, event_id):
-#     # View to handle event registration
-#     event = get_object_or_404(Event, id=event_id)  # Retrieve the event or show 404 error
-#     if event.current_attendees < event.max_attendees:
-#         registration, created = EventRegistration.objects.get_or_create(event=event, user=request.user)
-#         if created: #user not already registered
-#             event.current_attendees += 1  # Increment the number of registered attendees
-#             event.save()  # Save the updated event
-#             messages.success(request, 'Successfully registered for the event.')  # Success message
-#         else:
-#             messages.warning(request, 'You are already registered for this event.')  # Warning message
-#     else:
-#         messages.error(request, 'Event is already at maximum capacity.')  # Error message
-#     return redirect('event_detail', event_id=event.id)  # Redirect to the event detail page
+
 class user_profile(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
@@ -106,6 +93,7 @@ class user_profile(APIView):
         all_events = {'posted':posted_events, 'registered':registered_events}
         serializer = UserEventsSerializer(all_events)
         return Response(serializer.data)
+
 
 # @login_required
 # def user_profile(request):
