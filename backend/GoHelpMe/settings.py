@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'volunteer_events',
     'rest_framework',
     'corsheaders',
-    'accounts.apps.AccountsConfig',
+    'accounts',
+    'volunteer_hours_portfolio',
 ]
 
 MIDDLEWARE = [

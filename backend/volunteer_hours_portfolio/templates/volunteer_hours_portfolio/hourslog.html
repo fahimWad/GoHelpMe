@@ -1,0 +1,32 @@
+<hr>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Event Name</th>
+        <th scope="col">Date of Event</th>
+        <th scope="col">Hours Worked</th>
+        <th scope="col">Role</th>
+        <th scope="col">Organizer</th>
+        <th scope="col">Description</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+    {% for i in entries %}
+        <tr>
+            <td scope="row">{{i.event}}</td>
+            <td>{{i.date}}</td>
+            <td>{{i.hours}}</td>
+            <td>{{i.role}}</td>
+            <td>{{i.organizer}}</td>
+            <td>{{i.description}}</td>
+            <td><a class="btn btn-sm btn-info" href="{% url 'update_entry' i.id %}">Update</a></td>
+            <td><a class="btn btn-sm btn-danger" href="{% url 'delete_entry' i.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+  <hr>

@@ -1,0 +1,49 @@
+<div class = "row justify-content-center">
+    <div class = "col">
+        <div class = "card card-body d-flex flex-row align-items-center">
+            <form method="GET" class="form-inline">
+                <div class="d-flex flex-row">
+                    <div class="col-lg-3 form-group">
+                        <label for="Event" class="mr-2">Event:</label>
+                        <div class="mr-2">{{ searchFilter.form.event }}</div>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="Hours" class="mr-2">Hours:</label>
+                        <div class="mr-2">{{ searchFilter.form.hours }}</div>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="Organizer" class="mr-2">Organizer:</label>
+                        <div class="mr-2">{{ searchFilter.form.organizer }}</div>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="Start Date:" class="mr-2">Start Date:</label>
+                        <div class="mr-2">{{ searchFilter.form.start_date }}</div>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="End Date:" class="mr-2">End Date:</label>
+                        <div class="mr-2">{{ searchFilter.form.end_date }}</div>
+                    </div>
+                </div>
+            <div class="mt-2">
+                <button class="btn btn-primary ml-2" type="submit">Search</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div>
+    <form method="GET" class="form-inline">
+        <div class="form-group">
+            {{ searchFilter.form.event }}
+        </div>
+        <div class="form-group">
+            {{ searchFilter.form.hours }}
+        </div>
+        <div class="form-group">
+            {{ searchFilter.form.organizer }}
+        </div>
+        // Add more fields as needed
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div> -->

@@ -1,0 +1,19 @@
+{% extends 'volunteer_hours_portfolio/main.html' %}
+
+{% block content %}
+
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div clas="card card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form}}
+            
+                <input type="submit" name="Create Event">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
