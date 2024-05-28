@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-# Create your views here.
-from .models import *
+from django.contrib.auth.decorators import login_required
+from .models import Entry
 from .forms import EntryForm
 from .filters import VolunteerFilter
 from django.db.models import F
 
+@login_required
 def portfolio(request):
-
-    entries = Entry.objects.all()
+    entries = Entry.objects.filter(user=request.user)
 
     sort_by = request.GET.get('sort_by')
     sort_order = request.GET.get('sort_order', 'asc')
@@ -24,26 +24,29 @@ def portfolio(request):
         else:
             entries = entries.order_by(F('hours').desc(nulls_last=True))
 
-    searchFilter = VolunteerFilter(request.GET,queryset=entries)
+    searchFilter = VolunteerFilter(request.GET, queryset=entries)
     entries = searchFilter.qs
     context = {'entries': entries, 'searchFilter': searchFilter}
 
     return render(request, 'volunteer_hours_portfolio/portfolio.html', context)
 
+@login_required
 def createEntry(request):
     form = EntryForm()
     if request.method == 'POST':
         form = EntryForm(request.POST)
         if form.is_valid():
-            form.save()
+            entry = form.save(commit=False)
+            entry.user = request.user
+            entry.save()
             return redirect('portfolio')
 
-
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'volunteer_hours_portfolio/entry_form.html', context)
 
+@login_required
 def updateEntry(request, pk):
-    entry = Entry.objects.get(id=pk)
+    entry = Entry.objects.get(id=pk, user=request.user)
     
     form = EntryForm(instance=entry)
     if request.method == 'POST':
@@ -52,12 +55,12 @@ def updateEntry(request, pk):
             form.save()
             return redirect('portfolio')
     
-
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'volunteer_hours_portfolio/entry_form.html', context)
 
-def deleteEntry(request,pk):
-    entry = Entry.objects.get(id=pk)
+@login_required
+def deleteEntry(request, pk):
+    entry = Entry.objects.get(id=pk, user=request.user)
     if request.method == "POST":
         entry.delete()
         return redirect('portfolio')
