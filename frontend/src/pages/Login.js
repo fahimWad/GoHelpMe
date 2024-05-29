@@ -1,6 +1,7 @@
 
 import './css/App.css';
 import './css/Login.css';
+import './css/App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -25,7 +26,6 @@ function Login() {
   const [registrationToggle, setRegistrationToggle] = useState(false);
   const [ErrorLogin, setErrorLogin] = useState(null);
   const [ErrorRegistration, setErrorRegistration] = useState(null); // Define the state variable for registration errors
-
   //FIELD USED
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');

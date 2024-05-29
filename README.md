@@ -1,3 +1,4 @@
+
 ----------------------------------------------------------------Commands---------------------------------------------------------------------------------------
 
 If you have a new clone of the project, then you must execute the commands in the 'backend' and 'frontend' directory.
