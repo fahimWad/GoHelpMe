@@ -1,0 +1,16 @@
+
+.form-container {
+    width: 100%;
+    max-width: 500px; 
+    margin: 0 auto;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+.form-title {
+    text-align: left;
+    margin-bottom: 30px; /* Adjust the space between the title and the form as needed */
+    margin-top: 40px;
+}

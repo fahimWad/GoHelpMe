@@ -1,4 +1,5 @@
 import './css/App.css';
+import './css/Login.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -158,7 +159,8 @@ function Login() {
     {
       //Defines the registration form toggle depending on the toggle click
       registrationToggle ? (
-        <div className="center">
+        <div className="form-container">
+        <h1 className="form-title">Register</h1>
           <Form onSubmit={e => submitRegistration(e)}>
             
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -200,7 +202,9 @@ function Login() {
           </Form>
         </div>        
       ) : (
-        <div className="center">
+        <div className="center form-container">
+
+          <h1 className="form-title">Sign In</h1>
           <Form onSubmit={e => submitLogin(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
