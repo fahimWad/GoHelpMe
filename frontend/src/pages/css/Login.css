@@ -14,3 +14,7 @@
     margin-bottom: 30px; /* Adjust the space between the title and the form as needed */
     margin-top: 40px;
 }
+
+.login-form-btn {
+    visibility: hidden;
+}

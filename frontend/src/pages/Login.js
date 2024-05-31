@@ -53,7 +53,7 @@ function Login() {
     }
   }
   
-  //Functino defining Registration Form
+  //Function defining Registration Form
   function submitRegistration(e) {
     e.preventDefault();
     client.post(
@@ -123,7 +123,7 @@ function Login() {
   if (currentUser) {
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="Light" data-bs-theme="light">
           <Container>
             <Navbar.Brand>Authentication App</Navbar.Brand>
             <Navbar.Toggle />
@@ -145,13 +145,13 @@ function Login() {
   //Else, If there is no activate current user, we'll return a navbar with a register button that will allow us to toggle
   return (
     <div>
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="Light" data-bs-theme="light">
       <Container>
         <Navbar.Brand>GoHelpMe</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
-            <Button id="form_btn" onClick={update_form_btn} variant="light">Register</Button>
+            <Button className="login-form-btn" id="form_btn" onClick={update_form_btn} variant="light">Register</Button>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
@@ -200,14 +200,17 @@ function Login() {
               Submit
             </Button>
           </Form>
-        </div>        
+          <p></p> 
+          <a href="#" onClick={update_form_btn}>Already have an account? Login here</a>
+       
+       </div>        
       ) : (
         <div className="center form-container">
 
           <h1 className="form-title">Sign In</h1>
           <Form onSubmit={e => submitLogin(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
@@ -225,6 +228,9 @@ function Login() {
               Submit
             </Button>
           </Form>
+          <p></p>
+          <a href="#" onClick={update_form_btn}>Don't have an account? Register here</a>
+
         </div>
       )
     }
