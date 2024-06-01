@@ -5,6 +5,10 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import NoPage from './pages/NoPage';
 import Login from './pages/Login';
+import Portfolio from './pages/Portfolio';
+import PortfolioForm_Delete from './pages/PortfolioForm_Delete';
+import PortfolioForm_Create from './pages/PortfolioForm_Create';
+import PortfolioForm_Update from './pages/PortfolioForm_Update';
 
 export default function App(){
   return(
@@ -15,6 +19,10 @@ export default function App(){
         <Route path='/contact' index element={<Contact/ >} />
         <Route path='/about' index element={<About/ >} />
         <Route path='/login' index element={<Login/ >} />
+        <Route path='/portfolio' index element={<Portfolio/ >} />
+        <Route path='/portfolio_create_event' index element={<PortfolioForm_Create/ >} />
+        <Route path='/portfolio_delete_event' index element={<PortfolioForm_Delete/ >} />
+        <Route path='/portfolio_update_event' index element={<PortfolioForm_Update/ >} />
         <Route path='*' index element={<NoPage/ >} />
       </Routes>
     </BrowserRouter>
