@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function PortfolioUpdateButton() {
     const navigate = useNavigate();
     const handleClick = () => {
-      navigate('/portfolio_update_event');
+      navigate('/portfolio-update-event');
     };
   
     return (

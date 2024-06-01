@@ -6,6 +6,7 @@ import PortfolioUpdateButton from '../components/portfolio_update_button'
 import './css/App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import Container from 'react-bootstrap/Container';
 // import Navbar from 'react-bootstrap/Navbar';
@@ -17,12 +18,14 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-// //Client Instance with Django URL in order to type the url only once
-// const client = axios.create({
-//   baseURL: "http://127.0.0.1:8000/portfolio"
-// });
+//Client Instance with Django URL in order to type the url only once
+const client = axios.create({
+  baseURL: "http://127.0.0.1:8000"
+});
 
 function Portfolio() {
+    // const history = useHistory();
+
     const[data,setData] = useState([])
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/portfolio')
@@ -35,9 +38,11 @@ function Portfolio() {
         });
     }, [])
 
-    const handleSubmission = () => {
-        
+    const handleCreateClick = () => {
+        // history.push('/portfolio_create_event');
     }
+
+
 
 
     return(
@@ -48,7 +53,8 @@ function Portfolio() {
         </div>
         </Header>
         <div class="center">
-            <PortfolioCreateButton onClick={handleSubmission}/>
+            {/* <PortfolioCreateButton onClick={handleCreateClick}/> */}
+            <PortfolioCreateButton/>
         </div>
         {/* TABLE USED IN PORTFOLIO */}
         <div className = 'p-5 bg-light'>

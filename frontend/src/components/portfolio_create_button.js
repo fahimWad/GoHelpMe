@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function PortfolioCreateButton() {
     const navigate = useNavigate();
     const handleClick = () => {
-      navigate('/portfolio_create_event');
+      navigate('/portfolio-create-event');
     };
   
     return (
