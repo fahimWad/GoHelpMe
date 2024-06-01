@@ -23,15 +23,21 @@ axios.defaults.withCredentials = true;
 // });
 
 function Portfolio() {
-    const[data,setData] = useState()
+    const[data,setData] = useState([])
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/portfolio')
         .then(res => {
             console.log('Data fetched:', res.data);
             setData(res.data);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log('Error in data fetching:',err)
+        });
     }, [])
+
+    const handleSubmission = () => {
+        
+    }
 
 
     return(
@@ -42,8 +48,9 @@ function Portfolio() {
         </div>
         </Header>
         <div class="center">
-            <PortfolioCreateButton />
+            <PortfolioCreateButton onClick={handleSubmission}/>
         </div>
+        {/* TABLE USED IN PORTFOLIO */}
         <div className = 'p-5 bg-light'>
             <div className = 'bg-white shadow border'>
                 <table className='table'>
