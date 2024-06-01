@@ -35,3 +35,11 @@ span.input-group-addon {
     align-items: center;
     margin-top: 5%;
 }
+
+button {
+  background-color: #35514F; 
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 5px !important;
+}

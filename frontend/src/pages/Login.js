@@ -1,3 +1,4 @@
+
 import './css/App.css';
 import './css/Login.css';
 import React from 'react';
@@ -23,6 +24,8 @@ function Login() {
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
   const [ErrorLogin, setErrorLogin] = useState(null);
+  const [ErrorRegistration, setErrorRegistration] = useState(null); // Define the state variable for registration errors
+
   //FIELD USED
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -74,14 +77,23 @@ function Login() {
           username: username,
           password: password
         }
-        //SET CURRENT VARIABLE USER TO TRUE
+        // SET CURRENT VARIABLE USER TO TRUE
       ).then(function(res) {
         setCurrentUser(true);
+      }
+      ).catch(function(error) {
+        setErrorRegistration("Registration successful, but login failed. Please try logging in again.");
       });
+    // error checking
+    }).catch(function (error) { 
+      if(error.response) {
+        setErrorRegistration(error.response.data.detail || "Registration failed. Please check your input.");
+      } else if(error.request) {
+        setErrorRegistration("No response from server. Please try again later.");
+      } else {
+        setErrorRegistration("An unexpected error occurred. Please try again.");
+      }
     });
-
-    //Still need to implement error checking
-
   }
 
   //LOGIN HANDLER SENDS LOGIN DETAILS TO API
@@ -196,18 +208,21 @@ function Login() {
               <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
+            {ErrorRegistration && <p style={{ color: 'red' }}>{ErrorRegistration}</p>}
+
             <Button variant="primary" type="submit">
               Submit
             </Button>
           </Form>
           <p></p> 
-          <a href="#" onClick={update_form_btn}>Already have an account? Login here</a>
-       
+          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+              Already have an account? Login here
+          </button>       
        </div>        
       ) : (
         <div className="center form-container">
 
-          <h1 className="form-title">Sign In</h1>
+          <h1 className="form-title">Log In</h1>
           <Form onSubmit={e => submitLogin(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
@@ -229,8 +244,9 @@ function Login() {
             </Button>
           </Form>
           <p></p>
-          <a href="#" onClick={update_form_btn}>Don't have an account? Register here</a>
-
+          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: '#35514F', textDecoration: 'underline', cursor: 'pointer' }}>
+            Don't have an account? Register here
+          </button>  
         </div>
       )
     }
