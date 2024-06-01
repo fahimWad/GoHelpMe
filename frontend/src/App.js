@@ -9,6 +9,11 @@ import Portfolio from './pages/Portfolio';
 import PortfolioForm_Delete from './pages/PortfolioForm_Delete';
 import PortfolioForm_Create from './pages/PortfolioForm_Create';
 import PortfolioForm_Update from './pages/PortfolioForm_Update';
+import UserProfile from './pages/UserProfile';
+import EventList from './pages/EventList';
+import PostEvent from './pages/PostEvent';
+import EventDetail from './pages/EventDetail.js';
+
 
 export default function App(){
   return(
@@ -19,10 +24,14 @@ export default function App(){
         <Route path='/contact' index element={<Contact/ >} />
         <Route path='/about' index element={<About/ >} />
         <Route path='/login' index element={<Login/ >} />
-        <Route path='/portfolio' index element={<Portfolio/ >} />
-        <Route path='/portfolio_create_event' index element={<PortfolioForm_Create/ >} />
-        <Route path='/portfolio_delete_event' index element={<PortfolioForm_Delete/ >} />
-        <Route path='/portfolio_update_event' index element={<PortfolioForm_Update/ >} />
+        <Route path='/hour-tracker' index element={<Portfolio/ >} />
+        <Route path='/portfolio-create-event' index element={<PortfolioForm_Create/ >} />
+        <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} />
+        <Route path='/portfolio-update-event' index element={<PortfolioForm_Update/ >} />
+        <Route path='/home' index element={<EventList/ >} />
+        <Route path='/event-detail' index element={<EventDetail/ >} />
+        <Route path='/your-events' index element={<UserProfile/ >} />
+        <Route path='/post-event' index element={<PostEvent/ >} />
         <Route path='*' index element={<NoPage/ >} />
       </Routes>
     </BrowserRouter>
