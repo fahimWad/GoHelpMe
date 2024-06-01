@@ -12,35 +12,42 @@ import PortfolioForm_Update from './pages/PortfolioForm_Update';
 import UserProfile from './pages/UserProfile';
 import EventList from './pages/EventList';
 import PostEvent from './pages/PostEvent';
-import EventDetail from './pages/EventDetail.js';
+import EventDetail from './pages/EventDetail';
+import './pages/css/App.css';  // Import the CSS file
 
 
 export default function App(){
   return(
     <div>
     <BrowserRouter>
-      <Routes>
-        <Route path='/' index element={<Home/ >} />
-        <Route path='/contact' index element={<Contact/ >} />
-        <Route path='/about' index element={<About/ >} />
-        <Route path='/login' index element={<Login/ >} />
-        <Route path='/hour-tracker' index element={<Portfolio/ >} />
-        <Route path='/portfolio-create-event' index element={<PortfolioForm_Create/ >} />
-        <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} />
-        <Route path='/portfolio-update-event' index element={<PortfolioForm_Update/ >} />
-        <Route path='/home' index element={<EventList/ >} />
-        <Route path='/event-detail' index element={<EventDetail/ >} />
-        <Route path='/your-events' index element={<UserProfile/ >} />
-        <Route path='/post-event' index element={<PostEvent/ >} />
-        <Route path='*' index element={<NoPage/ >} />
-      </Routes>
+        <div style={styles.container}>
+          <Routes>
+            <Route path='/' index element={<Home/ >} />
+            <Route path='/contact' index element={<Contact/ >} />
+            <Route path='/about' index element={<About/ >} />
+            <Route path='/login' index element={<Login/ >} />
+            <Route path='/hour-tracker' index element={<Portfolio/ >} />
+            <Route path='/portfolio-create-event' index element={<PortfolioForm_Create/ >} />
+            <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} />
+            <Route path='/portfolio-update-event' index element={<PortfolioForm_Update/ >} />
+            <Route path='/home' index element={<EventList/ >} />
+            <Route path='/event-detail' index element={<EventDetail/ >} />
+            <Route path='/your-events' index element={<UserProfile/ >} />
+            <Route path='/post-event' index element={<PostEvent/ >} />
+            <Route path='*' index element={<NoPage/ >} />
+          </Routes>
+          </div>
     </BrowserRouter>
   </div>
   )
-    
 }
 
-
+const styles = {
+  container: {
+    padding: '20px',
+    fontFamily: 'Helvetica, Arial, sans-serif',
+  },
+};
 
 
 
