@@ -64,7 +64,6 @@ class event_detail(APIView):
 #     #    'event': event,
 #     #    'registered_users': registered_users,
 #     #    'registration_form': registration_form,
-
 class register(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
@@ -83,7 +82,6 @@ class register(APIView):
                 return Response({'message':'Already registered'},status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'message':'Event at max capacity'},status=status.HTTP_403_FORBIDDEN)
-
 class user_profile(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
@@ -93,7 +91,6 @@ class user_profile(APIView):
         all_events = {'posted':posted_events, 'registered':registered_events}
         serializer = UserEventsSerializer(all_events)
         return Response(serializer.data)
-
 
 # @login_required
 # def user_profile(request):
