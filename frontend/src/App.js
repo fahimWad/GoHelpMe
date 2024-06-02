@@ -6,7 +6,7 @@ import Contact from './pages/Contact';
 import NoPage from './pages/NoPage';
 import Login from './pages/Login';
 import Portfolio from './pages/Portfolio';
-import PortfolioForm_Delete from './pages/PortfolioForm_Delete';
+// import PortfolioForm_Delete from './pages/PortfolioForm_Delete';
 import PortfolioForm_Create from './pages/PortfolioForm_Create';
 import PortfolioForm_Update from './pages/PortfolioForm_Update';
 import UserProfile from './pages/UserProfile';
@@ -28,8 +28,8 @@ export default function App(){
             <Route path='/login' index element={<Login/ >} />
             <Route path='/hour-tracker' index element={<Portfolio/ >} />
             <Route path='/portfolio-create-event' index element={<PortfolioForm_Create/ >} />
-            <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} />
-            <Route path='/portfolio-update-event' index element={<PortfolioForm_Update/ >} />
+            {/* <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} /> */}
+            <Route path='/portfolio-update-event/:pk' index element={<PortfolioForm_Update/ >} />
             <Route path='/home' index element={<EventList/ >} />
             <Route path='/event-detail' index element={<EventDetail/ >} />
             <Route path='/your-events' index element={<UserProfile/ >} />

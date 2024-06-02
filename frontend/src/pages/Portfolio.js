@@ -47,7 +47,11 @@ function Portfolio() {
 
     const[data,setData] = useState([]);
     const[sortedField, setSortedField] = React.useState(null);
-    const[sortingOrder, setSortingOrder] = useState('asc');
+    const[sortingEventOrder, setSortingEventOrder] = useState('desc');
+    const[sortingDateOrder, setSortingDateOrder] = useState('desc');
+    const[sortingHoursOrder, setSortingHoursOrder] = useState('desc');
+    const[sortingRoleOrder, setSortingRoleOrder] = useState('desc');
+    const[sortingOrganizerOrder, setSortingOrganizerOrder] = useState('desc');
     const[searchEvent, setSearchEvent] = useState('');
     const[searchDate, setSearchDate] = useState('');
     const[searchHours, setSearchHours] = useState('');
@@ -57,14 +61,51 @@ function Portfolio() {
     const sortedData = data.sort((a, b) => {
         if (!sortedField) 
             return 0;
-        if (a[sortedField] < b[sortedField])
-            return sortingOrder === 'asc' ? -1 : 1;
-        if (a[sortedField] > b[sortedField])
-            return sortingOrder === 'asc' ? 1 : -1;
+        if (a[sortedField] < b[sortedField]) {
+            if (sortedField === 'event') 
+                return sortingEventOrder === 'asc' ? -1 : 1;
+            else if (sortedField === 'date') 
+                return sortingDateOrder === 'asc' ? -1 : 1;
+            else if (sortedField === 'hours') 
+                return sortingHoursOrder === 'asc' ? -1 : 1;
+            else if (sortedField === 'role') 
+                return sortingRoleOrder === 'asc' ? -1 : 1;
+            else if (sortedField === 'organizer') 
+                return sortingOrganizerOrder === 'asc' ? -1 : 1;
+        }
+        if (a[sortedField] > b[sortedField]) {
+            if (sortedField === 'event') 
+                return sortingEventOrder === 'asc' ? 1 : -1;
+            else if (sortedField === 'date') 
+                return sortingDateOrder === 'asc' ? 1 : -1;
+            else if (sortedField === 'hours') 
+                return sortingHoursOrder === 'asc' ? 1 : -1;
+            else if (sortedField === 'role') 
+                return sortingRoleOrder === 'asc' ? 1 : -1;
+            else if (sortedField === 'organizer') 
+                return sortingOrganizerOrder === 'asc' ? 1 : -1;
+        }
         return 0;
       });
+
+    const clickSort = (field) => {
+        console.log(sortedField, field);
+        if (sortedField !== field) {
+            setSortedField(field);
+        } 
+        if (field === 'event') 
+            sortingEventOrder === 'asc' ? setSortingEventOrder('desc') : setSortingEventOrder('asc');
+        else if (field === 'date') 
+            sortingDateOrder === 'asc' ? setSortingDateOrder('desc') : setSortingDateOrder('asc');
+        else if (field === 'hours') 
+            sortingHoursOrder === 'asc' ? setSortingHoursOrder('desc') : setSortingHoursOrder('asc');
+        else if (field === 'role') 
+            sortingRoleOrder === 'asc' ? setSortingRoleOrder('desc') : setSortingRoleOrder('asc');
+        else if (field === 'organizer') 
+            sortingOrganizerOrder === 'asc' ? setSortingOrganizerOrder('desc') : setSortingOrganizerOrder('asc');
+    };
     
-    const handleDelete = (pk) => {
+    const clickDelete = (pk) => {
         const newData = data.filter(item => item.id !== pk);
         setData(newData); 
         client.delete(`/api/volunteer_hours_portfolio/delete_entry/${pk}/`, {
@@ -168,42 +209,42 @@ function Portfolio() {
                     <thead>
                         <tr>
                             <th>
-                                <span onClick={() => setSortedField('event')}>
+                                <span onClick={() => clickSort('event')}>
                                     Event Name
                                     <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
-                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                        {sortingEventOrder === 'asc' ? '▲' : '▼'}
                                     </button>
                                 </span>
                             </th>
                             <th>
-                                <span onClick={() => setSortedField('date')}>
+                                <span onClick={() => clickSort('date')}>
                                     Date of Event
                                     <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
-                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                        {sortingDateOrder === 'asc' ? '▲' : '▼'}
                                     </button>
                                 </span>
                             </th>
                             <th>
-                                <span onClick={() => setSortedField('hours')}>
+                                <span onClick={() => clickSort('hours')}>
                                     Hours Worked
                                     <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
-                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                        {sortingHoursOrder === 'asc' ? '▲' : '▼'}
                                     </button>
                                 </span>
                             </th>
                             <th>
-                                <span onClick={() => setSortedField('role')}>
+                                <span onClick={() => clickSort('role')}>
                                     Role
                                     <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
-                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                        {sortingRoleOrder === 'asc' ? '▲' : '▼'}
                                     </button>
                                 </span>
                             </th>
                             <th>
-                                <span onClick={() => setSortedField('organizer')}>
+                                <span onClick={() => clickSort('organizer')}>
                                     Organizer
                                     <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
-                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                        {sortingOrganizerOrder === 'asc' ? '▲' : '▼'}
                                     </button>
                                 </span>
                             </th>
@@ -237,9 +278,9 @@ function Portfolio() {
                                 <td>{d.description}</td>
                                 <td>
                                     <div className="d-flex">
-                                        <PortfolioUpdateButton pk={d.id}/>
+                                        <PortfolioUpdateButton pk={parseInt(d.id)}/>
                                         {/* getting the ID of the event from the map */}
-                                        <PortfolioDeleteButton pk={d.id} onClick={handleDelete} />
+                                        <PortfolioDeleteButton pk={d.id} onClick={clickDelete} />
                                     </div>
                                 </td>
                             </tr>
