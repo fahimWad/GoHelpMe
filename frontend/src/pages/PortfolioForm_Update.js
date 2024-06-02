@@ -9,7 +9,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { fetchData } from './Portfolio';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -45,9 +45,9 @@ export default function PortfolioForm_Update(){
   //CSRF Token. Token Used to Request the post.
   const csrftoken = getCookie('csrftoken')
 
-
+  const { pk } = useParams();
   const navigate = useNavigate();
-  const [ErrorCreate, setErrorCreate] = useState(null);
+  const [ErrorUpdate, setErrorUpdate] = useState(null);
 
   const [event, setEvent] = useState('');
   const [date, setDate] = useState('');
@@ -57,15 +57,14 @@ export default function PortfolioForm_Update(){
   const [description, setDescription] = useState('');
 
   // creating event
-  function handleCreateClick(e) {
+  function clickUpdate(e) {
     e.preventDefault();
     const token = localStorage.getItem('authToken');
     const headers = {
       Authorization: `Token ${token}`
     };
     client.post(
-        //SOMEONE NEEDS TO FIX PK ID
-        // `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
+        `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
       {
         event: event,
         date: date,
@@ -87,16 +86,16 @@ export default function PortfolioForm_Update(){
         setOrganizer(res.data.organizer);
         setDescription(res.data.description);
         navigate('/hour-tracker');
-    }).catch(function(ErrorCreate) {
-      if (ErrorCreate.response) {
+    }).catch(function(ErrorUpdate) {
+      if (ErrorUpdate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
-        setErrorCreate("Error response: " + ErrorCreate.response.data);
-      } else if (ErrorCreate.request) {
+        setErrorUpdate("Error: Missing inputs");
+      } else if (ErrorUpdate.request) {
         // Request was made but no response was received
-        setErrorCreate("Error request: " + ErrorCreate.request);
+        setErrorUpdate("Error request: " + ErrorUpdate.request);
       } else {
         // Something else happened in making the request
-        setErrorCreate("Error: " + ErrorCreate.message);
+        setErrorUpdate("Error: " + ErrorUpdate.message);
       }
     });
   }
@@ -113,12 +112,11 @@ export default function PortfolioForm_Update(){
     });
   }, []);
 
-//   const handleChange = (event) => {
-//     // Convert the input value to an integer
-//     const inputValue = parseInt(event.target.value);
-//     // Update the state with the integer value
-//     setHours(inputValue);
-//   };
+  const positiveHours = (event) => {
+    const hours = parseInt(event.target.value);
+    if (hours >= 0)
+      setHours(hours);
+  };
 
   if (currentUser) {
     return(
@@ -126,36 +124,39 @@ export default function PortfolioForm_Update(){
         <Header/>
         <div className="center form-container">
           <h1 className="form-title">Update Event</h1>
-          <Form onSubmit={e => handleCreateClick(e)}>
+          <p style={{ color: 'red' }}>You must fill in every input, even if you are not changing it, in order to update the event.</p>
+          <Form onSubmit={e => clickUpdate(e, pk)}>
             <Form.Group className="mb-3" controlId="formBasicEventName">
               <Form.Label>Event Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Event Name" value={event} onChange={e => setEvent(e.target.value)} />
+              <Form.Control type="text" placeholder="Update Event" value={event} onChange={e => setEvent(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
+              <Form.Control type="date" placeholder="Update Date" value={date} onChange={e => setDate(e.target.value)} />
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicHours">
               <Form.Label>Hours</Form.Label>
-              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={e => setHours(e.target.value)} />
+              <Form.Control type="number" placeholder="Update Hours Worked" value={hours} onChange={positiveHours} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicRole">
               <Form.Label>Role</Form.Label>
-              <Form.Control type="text" placeholder="Enter Role" value={role} onChange={e => setRole(e.target.value)} />
+              <Form.Control type="text" placeholder="Update Role" value={role} onChange={e => setRole(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicOrganizer">
               <Form.Label>Organizer</Form.Label>
-              <Form.Control type="text" placeholder="Enter Organizer" value={organizer} onChange={e => setOrganizer(e.target.value)} />
+              <Form.Control type="text" placeholder="Update Organizer" value={organizer} onChange={e => setOrganizer(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDescription">
               <Form.Label>Description</Form.Label>
-              <Form.Control type="text" placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} />
+              <Form.Control type="text" placeholder="Update Description" value={description} onChange={e => setDescription(e.target.value)} />
             </Form.Group>
+
+            {ErrorUpdate && <p style={{ color: 'red' }}>{ErrorUpdate}</p>}
 
             <Button variant="primary" type="submit">
               Submit

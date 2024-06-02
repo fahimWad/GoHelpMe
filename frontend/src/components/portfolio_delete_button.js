@@ -8,7 +8,7 @@ function PortfolioDeleteButton({pk, onClick}) {
     };
   
     return (
-      <button onClick={handleClick}>
+      <button style={{ backgroundColor: 'red', marginLeft: '5px' }} onClick={handleClick}>
         Delete
       </button>
     );

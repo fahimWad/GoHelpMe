@@ -57,7 +57,7 @@ export default function PortfolioForm_Create(){
   const [description, setDescription] = useState('');
 
   // creating event
-  function handleCreateClick(e) {
+  function clickCreate(e) {
     e.preventDefault();
     client.post(
       "/api/volunteer_hours_portfolio/create_entry/",
@@ -80,7 +80,7 @@ export default function PortfolioForm_Create(){
     }).catch(function(ErrorCreate) {
       if (ErrorCreate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
-        setErrorCreate("Error response: " + ErrorCreate.response.data);
+        setErrorCreate("Error: Missing inputs ");
       } else if (ErrorCreate.request) {
         // Request was made but no response was received
         setErrorCreate("Error request: " + ErrorCreate.request);
@@ -103,11 +103,10 @@ export default function PortfolioForm_Create(){
     });
   }, []);
 
-  const handleChange = (event) => {
-    // Convert the input value to an integer
-    const inputValue = parseInt(event.target.value);
-    // Update the state with the integer value
-    setHours(inputValue);
+  const positiveHours = (event) => {
+    const hours = parseInt(event.target.value);
+    if (hours >= 0)
+      setHours(hours);
   };
 
   if (currentUser) {
@@ -116,7 +115,7 @@ export default function PortfolioForm_Create(){
         <Header/>
         <div className="center form-container">
           <h1 className="form-title">Create Event</h1>
-          <Form onSubmit={e => handleCreateClick(e)}>
+          <Form onSubmit={e => clickCreate(e)}>
             <Form.Group className="mb-3" controlId="formBasicEventName">
               <Form.Label>Event Name</Form.Label>
               <Form.Control type="text" placeholder="Enter Event Name" value={event} onChange={e => setEvent(e.target.value)} />
@@ -129,7 +128,7 @@ export default function PortfolioForm_Create(){
             
             <Form.Group className="mb-3" controlId="formBasicHours">
               <Form.Label>Hours</Form.Label>
-              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={handleChange} />
+              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={positiveHours} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicRole">
@@ -146,6 +145,8 @@ export default function PortfolioForm_Create(){
               <Form.Label>Description</Form.Label>
               <Form.Control type="text" placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} />
             </Form.Group>
+
+            {ErrorCreate && <p style={{ color: 'red' }}>{ErrorCreate}</p>}
 
             <Button variant="primary" type="submit">
               Submit
