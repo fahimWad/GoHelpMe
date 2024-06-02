@@ -1,10 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function PortfolioDeleteButton() {
-    const navigate = useNavigate();
+function PortfolioDeleteButton({pk, onClick}) {
     const handleClick = () => {
-      navigate('/portfolio-delete-event');
+        const deleteConfirmMessage = window.confirm('Are you sure you want to delete this event? This action cannot be undone.');
+        if (deleteConfirmMessage)
+            onClick(pk);
     };
   
     return (
