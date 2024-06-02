@@ -66,8 +66,11 @@ function Portfolio() {
     const handleDelete = (pk) => {
         const newData = data.filter(item => item.id !== pk);
         setData(newData); 
-        client.delete(`/api/volunteer_hours_portfolio/delete_entry/${pk}/`)
-        .then(res => {
+        client.delete(`/api/volunteer_hours_portfolio/delete_entry/${pk}/`, {
+            headers: {
+                'X-CSRFToken': csrftoken // Include the CSRF token in the request. THIS WAS THE SOLUTION TO THE PROBLEM.
+            }
+        }).then(res => {
             console.log('Deleted Event:', res.data);
         })
         .catch(err => {
@@ -76,7 +79,11 @@ function Portfolio() {
     };
 
     useEffect(() => {
-        client.get('/api/volunteer_hours_portfolio/portfolio/')
+        client.get('/api/volunteer_hours_portfolio/portfolio/', {
+            headers: {
+                'X-CSRFToken': csrftoken // Include the CSRF token in the request. THIS WAS THE SOLUTION TO THE PROBLEM.
+            }
+        })
         .then(res => {
             console.log('Data fetched:', res.data);
             setData(res.data);
@@ -218,7 +225,7 @@ function Portfolio() {
                                 <td>{d.description}</td>
                                 <td>
                                     <div className="d-flex">
-                                        <PortfolioUpdateButton />
+                                        <PortfolioUpdateButton pk={d.id}/>
                                         {/* getting the ID of the event from the map */}
                                         <PortfolioDeleteButton pk={d.id} onClick={handleDelete} />
                                     </div>
