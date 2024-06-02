@@ -9,7 +9,7 @@ function PortfolioCreateButton() {
   
     return (
       <button class="left" onClick={handleClick}>
-        Create
+        Record Your Event
       </button>
     );
   }

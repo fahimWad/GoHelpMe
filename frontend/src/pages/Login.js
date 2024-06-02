@@ -189,6 +189,8 @@ function Login() {
 
   //If the currentUser exists, the app component will return a navbar with a logout button and div with message
   if (currentUser) {
+    navigate('/home');
+    /*
     return (
       <div>
         <Navbar bg="Light" data-bs-theme="light">
@@ -208,7 +210,7 @@ function Login() {
             <h2>You're logged in!</h2>
           </div>
         </div>
-    );
+    ); */
   }
   //Else, If there is no activate current user, we'll return a navbar with a register button that will allow us to toggle
   return (

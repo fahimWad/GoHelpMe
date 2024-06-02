@@ -2,11 +2,29 @@ import './css/Home.css';
 import Header from '../components/header'
 import LoginButton from '../components/login_button'
 import trees from '../components/assets/trees.png'; // Adjust the path as necessary
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import logo from '../components/assets/logo.png'; 
+import Button from 'react-bootstrap/Button';
+
 
 export default function Home(){
     return(
         <>
-        <Header/>
+        <Navbar bg="Light" data-bs-theme="dark">
+            <Container>
+                <Navbar.Brand href="/">
+                    <img
+                    src={logo}
+                    alt="GoHelpMe logo"
+                    width="32"
+                    height="32"
+                    className="d-inline-block align-top"
+                    />{' '}
+                    GoHelpMe
+                </Navbar.Brand>
+            </Container>
+        </Navbar>
         <div class="center">
             <h2>Welcome to GoHelpMe</h2>
         </div>
