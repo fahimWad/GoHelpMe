@@ -39,7 +39,7 @@ class createEntry(APIView):
 
     def get(self, request):
         form = EntryForm()
-        return Response({'form': form})
+        return Response({'form': form.as_p()})
 
     def post(self, request):
         form = EntryForm(request.data)
