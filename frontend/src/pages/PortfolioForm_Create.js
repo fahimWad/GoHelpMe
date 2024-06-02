@@ -35,6 +35,10 @@ export default function PortfolioForm_Create(){
   // creating event
   function handleCreateClick(e) {
     e.preventDefault();
+    const token = localStorage.getItem('authToken');
+    const headers = {
+      Authorization: `Token ${token}`
+    };
     client.post(
       "/api/volunteer_hours_portfolio/create_entry/",
       {
@@ -45,6 +49,7 @@ export default function PortfolioForm_Create(){
         organizer: organizer,
         description: description
       },
+      { headers: headers } 
     ).then(function(res) {
       // fetchData();
       navigate('/hour-tracker');
