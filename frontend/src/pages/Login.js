@@ -73,6 +73,8 @@ function Login() {
         last_name: last_name,
         school: school
       }
+      // ,
+      // {headers: {'X-CSRFToken': axios.defaults.xsrfCookieName}}
     ).then(function(res) {
       //LOGIN HANDLER
       client.post(

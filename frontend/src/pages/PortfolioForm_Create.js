@@ -16,12 +16,36 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
+
+
 //Client Instance with Django URL in order to type the url only once
 const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
 
+// Function to get the CSRF token from the cookie. Function in Django Documentation
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 export default function PortfolioForm_Create(){
+
+  //CSRF Token. Token Used to Request the post.
+  const csrftoken = getCookie('csrftoken')
+
+
   const navigate = useNavigate();
   const [ErrorCreate, setErrorCreate] = useState(null);
 
@@ -45,6 +69,14 @@ export default function PortfolioForm_Create(){
         organizer: organizer,
         description: description
       },
+      {
+        headers: {
+          'X-CSRFToken': csrftoken // Include the CSRF token in the request. THIS WAS THE SOLUTION TO THE PROBLEM.
+        }
+      }
+      
+
+      // { headers: { 'X-CSRFToken': csrftoken } }
     ).then(function(res) {
       // fetchData();
       navigate('/hour-tracker');
@@ -61,7 +93,27 @@ export default function PortfolioForm_Create(){
       }
     });
   }
+  const [currentUser, setCurrentUser] = useState();
 
+  //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+  useEffect(() => {
+    client.get("/api/accounts")
+    .then(function(res) {
+      setCurrentUser(true);
+    })
+    .catch(function(error) {
+      setCurrentUser(false);
+    });
+  }, []);
+
+  const handleChange = (event) => {
+    // Convert the input value to an integer
+    const inputValue = parseInt(event.target.value);
+    // Update the state with the integer value
+    setHours(inputValue);
+  };
+
+  if (currentUser) {
     return(
         <>
         <Header/>
@@ -80,7 +132,7 @@ export default function PortfolioForm_Create(){
             
             <Form.Group className="mb-3" controlId="formBasicHours">
               <Form.Label>Hours</Form.Label>
-              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={e => setHours(e.target.value)} />
+              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={handleChange} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicRole">
@@ -106,4 +158,8 @@ export default function PortfolioForm_Create(){
 
     </>
     )
+  }
+  return(
+    <div>Not Logged In!</div>
+  )
 }
