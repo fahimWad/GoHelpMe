@@ -55,6 +55,12 @@ export default function Post_Event(){
 
   //DEFINE STATES HERE
   function PostEvent (e) {
+    console.log(name)
+    console.log(description)
+    console.log(date)
+    console.log(time)
+    console.log(location)
+    console.log(maxattendees)
     e.preventDefault();
     client.post(
       "/api/volunteer_events/post_event/",
@@ -64,7 +70,7 @@ export default function Post_Event(){
         date: date, 
         time: time, 
         location: location, 
-        maxattendees: maxattendees,
+        max_attendees: maxattendees,
         //KEEP FILLING OUT
       },
       {
@@ -92,7 +98,7 @@ export default function Post_Event(){
     const [currentUser, setCurrentUser] = useState();
     //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
     useEffect(() => {
-      client.get("/api/volunteer_events")
+      client.get("/api/accounts")
       .then(function(res) {
         setCurrentUser(true);
       })
@@ -127,12 +133,12 @@ export default function Post_Event(){
             
             <Form.Group className="mb-3" controlId="formBasicDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="time" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicLocation">
