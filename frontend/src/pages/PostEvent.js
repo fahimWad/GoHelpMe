@@ -18,17 +18,30 @@ const PostEvent = () => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-  
+  /*
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
         await axiosInstance.post('/api/volunteer_events/post_event/', formData);  // Correct URL
-        navigate('/events/');
+        navigate('/api/volunteer_events/events/');
       } catch (error) {
         console.error('Error posting event', error);
       }
     };
-  
+  */
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const response = await axiosInstance.post('/api/volunteer_events/post_event/', formData);
+          if (response.status === 201) {
+              const eventId = response.data.event_id;
+              navigate(`/api/volunteer_events/events/${eventId}/`);
+          }
+      } catch (error) {
+          console.error('Error posting event', error.response ? error.response.data : error.message);
+      }
+  };
+
     return (
       <>
         <Header />
@@ -108,153 +121,3 @@ const PostEvent = () => {
   };
   
 export default PostEvent;
-
-/*
-const PostEvent = () => {
-    const [formData, setFormData] = useState({
-      name: '',
-      description: '',
-      date: '',
-      time: '',
-      location: '',
-      max_attendees: ''
-    });
-  
-    const navigate = useNavigate();
-  
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
-    };
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        await axiosInstance.post('/post_event/', formData);
-        alert('Event posted successfully');
-        navigate('/events');
-      } catch (error) {
-        alert('Error posting event');
-      }
-    };
-  
-    return (
-      <div style={styles.container}>
-        <h1>Post Event</h1>
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.formGroup}>
-            <label>Event Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              style={styles.textarea}
-              required
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Date (MM/DD/YYYY)</label>
-            <input
-              type="text"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Time (HH:MM AM/PM)</label>
-            <input
-              type="text"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Location</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-          </div>
-          <div style={styles.formGroup}>
-            <label>Max Attendees</label>
-            <input
-              type="number"
-              name="max_attendees"
-              value={formData.max_attendees}
-              onChange={handleChange}
-              style={styles.input}
-              required
-            />
-          </div>
-          <button type="submit" style={styles.button}>Submit</button>
-        </form>
-      </div>
-    );
-  };
-  
-  const styles = {
-    container: {
-      maxWidth: '600px',
-      margin: '0 auto',
-      padding: '20px',
-      border: '1px solid #ddd',
-      borderRadius: '5px',
-      backgroundColor: '#f9f9f9',
-    },
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    formGroup: {
-      marginBottom: '15px',
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      fontSize: '16px',
-    },
-    textarea: {
-      width: '100%',
-      padding: '10px',
-      borderRadius: '5px',
-      border: '1px solid #ddd',
-      fontSize: '16px',
-    },
-    button: {
-      backgroundColor: '#35514F',
-      color: '#FFF',
-      border: 'none',
-      padding: '10px 20px',
-      cursor: 'pointer',
-      borderRadius: '5px',
-      fontSize: '16px',
-    },
-  };
-  
-  export default PostEvent;
-*/

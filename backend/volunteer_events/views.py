@@ -28,7 +28,8 @@ class post_event(APIView):
                 event = form.save(commit=False)  # Create an event instance but don't save it yet
                 event.organizer = request.user  # Set the current user as the organizer
                 event.save()  # Save the event to the database  # Success message
-                return Response({'message' : 'Event posted successfully.'},status=status.HTTP_201_CREATED)  # Redirect to the event detail page
+                #return Response({'message' : 'Event posted successfully.'},status=status.HTTP_201_CREATED)  Redirect to the event detail page
+                return Response({'message': 'Event posted successfully.', 'event_id': event.id}, status=status.HTTP_201_CREATED)
             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class event_list(APIView):
