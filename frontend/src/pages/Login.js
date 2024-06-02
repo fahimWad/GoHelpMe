@@ -5,11 +5,13 @@ import './css/App.css';
 import './css/Login.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigation } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -22,6 +24,7 @@ const client = axios.create({
 });
 
 function Login() {
+  const navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState();
   const [registrationToggle, setRegistrationToggle] = useState(false);
@@ -81,6 +84,7 @@ function Login() {
         // SET CURRENT VARIABLE USER TO TRUE
       ).then(function(res) {
         setCurrentUser(true);
+        navigate('/home');
       }
       ).catch(function(error) {
         setErrorRegistration("Registration successful, but login failed. Please try logging in again.");
@@ -108,6 +112,7 @@ function Login() {
       }
     ).then(function(res) {
       setCurrentUser(true);
+      navigate('/home');
     }).catch(function(ErrorLogin) {
       if (ErrorLogin.response) {
         // Request was made and server responded with a status code outside the range of 2xx
