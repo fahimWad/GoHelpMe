@@ -75,12 +75,12 @@ export default function PortfolioForm_Create(){
 
             <Form.Group className="mb-3" controlId="formBasicDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="text" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
+              <Form.Control type="date" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicHours">
               <Form.Label>Hours</Form.Label>
-              <Form.Control type="text" placeholder="Enter Hours Worked" value={hours} onChange={e => setHours(e.target.value)} />
+              <Form.Control type="number" placeholder="Enter Hours Worked" value={hours} onChange={e => setHours(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicRole">
