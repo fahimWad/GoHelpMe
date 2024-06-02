@@ -14,7 +14,7 @@ from .models import Event, EventRegistration
 from .forms import EventForm, EventRegistrationForm
 from collections import namedtuple
 from typing import NamedTuple
-
+import sys
 class post_event(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication]
@@ -24,7 +24,9 @@ class post_event(APIView):
     def post(self, request):
         # View to handle event posting
             form = EventForm(request.data)
+            # print(request.data,sys.stderr)
             if form.is_valid():
+
                 event = form.save(commit=False)  # Create an event instance but don't save it yet
                 event.organizer = request.user  # Set the current user as the organizer
                 event.save()  # Save the event to the database  # Success message
