@@ -59,10 +59,6 @@ export default function PortfolioForm_Create(){
   // creating event
   function handleCreateClick(e) {
     e.preventDefault();
-    const token = localStorage.getItem('authToken');
-    const headers = {
-      Authorization: `Token ${token}`
-    };
     client.post(
       "/api/volunteer_hours_portfolio/create_entry/",
       {
@@ -94,8 +90,8 @@ export default function PortfolioForm_Create(){
       }
     });
   }
+  
   const [currentUser, setCurrentUser] = useState();
-
   //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
   useEffect(() => {
     client.get("/api/accounts")
