@@ -137,7 +137,7 @@ export default function Post_Event(){
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicDate">
-              <Form.Label>Date</Form.Label>
+              <Form.Label>Time</Form.Label>
               <Form.Control type="text" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
             </Form.Group>
 

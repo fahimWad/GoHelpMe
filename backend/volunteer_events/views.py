@@ -68,8 +68,11 @@ class event_detail(APIView):
 #     #    'registered_users': registered_users,
 #     #    'registration_form': registration_form,
 class register(APIView):
-    permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
+    #permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
+    #authentication_classes = (SessionAuthentication, BasicAuthentication) 
+    permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
+    
     def get(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
         return Response((EventSerializer(event)).data)
@@ -80,7 +83,7 @@ class register(APIView):
             if created:
                 event.current_attendees += 1
                 event.save()
-                return Response({'message':'Successfully registered for event.'},status=status.HTTP_200_OK)
+                return Response({'message':'Successfully registered for event.', 'current_attendees': event.current_attendees},status=status.HTTP_200_OK)
             else:
                 return Response({'message':'Already registered'},status=status.HTTP_400_BAD_REQUEST)
         else:
