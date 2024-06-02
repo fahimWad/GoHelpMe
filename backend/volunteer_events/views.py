@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, permissions
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -34,14 +34,14 @@ class post_event(APIView):
 
 class event_list(APIView):
     permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,) 
+    authentication_classes = (SessionAuthentication, BasicAuthentication) 
     def get(self, request):
         events = Event.objects.all()
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
     
 class event_detail(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
     authentication_classes = (SessionAuthentication,) 
     def get(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
@@ -66,7 +66,7 @@ class event_detail(APIView):
 #     #    'registered_users': registered_users,
 #     #    'registration_form': registration_form,
 class register(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
     authentication_classes = (SessionAuthentication,) 
     def get(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
@@ -85,7 +85,7 @@ class register(APIView):
             return Response({'message':'Event at max capacity'},status=status.HTTP_403_FORBIDDEN)
 class user_profile(APIView):
     permission_classes = (permissions.IsAuthenticated,)
-    authentication_classes = (SessionAuthentication,) 
+    authentication_classes = (SessionAuthentication, BasicAuthentication) 
     def get(self, request):
         posted_events = request.user.organized_events.all()
         registered_events = request.user.events_registered.all()

@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Entry
@@ -11,6 +11,7 @@ from .forms import EntryForm
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.db.models import F
 from django.contrib.auth.decorators import login_required
+import sys
 
 class portfolio(APIView):
     permission_classes = [IsAuthenticated]
@@ -35,7 +36,7 @@ class portfolio(APIView):
 
 class createEntry(APIView):
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get(self, request):
         form = EntryForm()
@@ -43,6 +44,7 @@ class createEntry(APIView):
 
     def post(self, request):
         form = EntryForm(request.data)
+        print(request.data)
         if form.is_valid():
             entry = form.save(commit=False)
             entry.user = request.user
