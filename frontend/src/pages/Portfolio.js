@@ -6,7 +6,6 @@ import PortfolioUpdateButton from '../components/portfolio_update_button'
 import './css/App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import Container from 'react-bootstrap/Container';
 // import Navbar from 'react-bootstrap/Navbar';
@@ -23,12 +22,16 @@ const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
 
+export function fetchData() {
+    // implementation  
+}
+
 function Portfolio() {
     // const history = useHistory();
 
     const[data,setData] = useState([])
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/portfolio')
+        axios.get('http://127.0.0.1:8000/api/volunteer_hours_portfolio/portfolio/')
         .then(res => {
             console.log('Data fetched:', res.data);
             setData(res.data);
@@ -38,13 +41,6 @@ function Portfolio() {
         });
     }, [])
 
-    const handleCreateClick = () => {
-        // history.push('/portfolio_create_event');
-    }
-
-
-
-
     return(
         <>
         <Header>
@@ -53,7 +49,7 @@ function Portfolio() {
         </div>
         </Header>
         <div class="center">
-            {/* <PortfolioCreateButton onClick={handleCreateClick}/> */}
+
             <PortfolioCreateButton/>
         </div>
         {/* TABLE USED IN PORTFOLIO */}

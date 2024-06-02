@@ -8,6 +8,8 @@ import axios from 'axios';
 // import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { fetchData } from './Portfolio';
+import { useNavigate } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -16,10 +18,11 @@ axios.defaults.withCredentials = true;
 
 //Client Instance with Django URL in order to type the url only once
 const client = axios.create({
-  baseURL: "http://127.0.0.1:8000/portfolio"
+  baseURL: "http://127.0.0.1:8000"
 });
 
 export default function PortfolioForm_Create(){
+  const navigate = useNavigate();
   const [ErrorCreate, setErrorCreate] = useState(null);
 
   const [event, setEvent] = useState('');
@@ -30,10 +33,10 @@ export default function PortfolioForm_Create(){
   const [description, setDescription] = useState('');
 
   // creating event
-  function createEvent(e) {
+  function handleCreateClick(e) {
     e.preventDefault();
     client.post(
-      "/api/create_entry/",
+      "/api/volunteer_hours_portfolio/create_entry/",
       {
         event: event,
         date: date,
@@ -41,19 +44,20 @@ export default function PortfolioForm_Create(){
         role: role,
         organizer: organizer,
         description: description
-      }
+      },
     ).then(function(res) {
-      // setCurrentUser(true);
+      // fetchData();
+      navigate('/hour-tracker');
     }).catch(function(ErrorCreate) {
       if (ErrorCreate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
-        setErrorCreate("EDIT!");
+        setErrorCreate("Error response: " + ErrorCreate.response.data);
       } else if (ErrorCreate.request) {
         // Request was made but no response was received
-        setErrorCreate("EDIT!");
+        setErrorCreate("Error request: " + ErrorCreate.request);
       } else {
         // Something else happened in making the request
-        setErrorCreate("EDIT!");
+        setErrorCreate("Error: " + ErrorCreate.message);
       }
     });
   }
@@ -63,7 +67,7 @@ export default function PortfolioForm_Create(){
         <Header/>
         <div className="center form-container">
           <h1 className="form-title">Create Event</h1>
-          <Form onSubmit={e => createEvent(e)}>
+          <Form onSubmit={e => handleCreateClick(e)}>
             <Form.Group className="mb-3" controlId="formBasicEventName">
               <Form.Label>Event Name</Form.Label>
               <Form.Control type="text" placeholder="Enter Event Name" value={event} onChange={e => setEvent(e.target.value)} />
