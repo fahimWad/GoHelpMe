@@ -142,7 +142,7 @@ function Portfolio() {
         <div class="center">
             <h2>Hour Tracker</h2>
         </div>
-        <div className="portfolio-description">
+        <div className="portfolio-description" style={{marginBottom:'30px'}}>
             <p><br></br>Welcome to the Hour Tracking Page, your one-stop solution for managing and tracking your volunteer or work hours. This page allows you to log and keep detailed records of all your events. Here's what you can do: <br></br><br></br></p>
             <li><b>Event Name:</b> Input the name of the event you participated in.</li>
             <li><b>Date of Event:</b> Specify the exact date when the event took place.</li>
@@ -151,7 +151,7 @@ function Portfolio() {
             <li><b>Organizer:</b> Enter the name of the organization or individual who organized the event.</li>
             <li><b>Description:</b> Provide a detailed description of the event, including any significant activities or outcomes.</li>
             <p><br></br><br></br>
-                Using this page, you can easily keep track of your hours and events, ensuring you have a comprehensive record of your contributions and experiences. This is an excellent tool for maintaining a detailed log for future reference, applications, or personal satisfaction. Start logging your events today and take control of your time management!<br></br></p>
+                Using this page, you can easily keep track of your hours and events, ensuring you have a comprehensive record of your contributions and experiences. This is an excellent tool for maintaining a detailed log for future reference, applications, or personal satisfaction. Start logging your events today and take control of your time management!</p>
         </div>
         <div className="portfolio-button">
             <PortfolioCreateButton/>

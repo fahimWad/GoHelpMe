@@ -100,7 +100,11 @@ function getCookie(name) {
         <>
           <Header />
           <div className="container">
-            <h1 className="text-center my-4">Current Volunteer Events</h1>
+            <h1 className="text-center my-4">All Volunteer Events</h1>
+            <p style={{marginBottom:'30px'}}>Explore a wide variety of upcoming events.
+              Whether you're passionate about environmental conservation, community outreach, education, or any other cause, you'll find an event that aligns with your interests. 
+              Simply browse through the events, find the ones that resonate with you, and register to volunteer. 
+              <br></br><br></br>Join us in making a difference and giving back to the community!</p>
             {error && <p className="text-danger">{error}</p>}
             <div className="grid">
               {events.map(event => (
