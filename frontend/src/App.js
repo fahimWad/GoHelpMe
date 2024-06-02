@@ -44,7 +44,7 @@ export default function App(){
 
 const styles = {
   container: {
-    padding: '20px',
+    //padding: '20px',
     fontFamily: 'Helvetica, Arial, sans-serif',
   },
 };

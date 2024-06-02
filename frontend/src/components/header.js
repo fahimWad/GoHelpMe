@@ -1,13 +1,38 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from './assets/logo.png'; // Adjust the path as necessary
+import logo from './assets/logo.png'; 
+import '../pages/css/Header.css'
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios'; // Import axios
+import { useNavigate } from 'react-router-dom'; 
 
 function Header() {
+  const navigate = useNavigate();
+  
+  const client = axios.create({
+    baseURL: "http://127.0.0.1:8000",
+    // AXIOS VARIABLES FOR SECURITY PURPOSES
+    xsrfCookieName: 'csrftoken',
+    xsrfHeaderName: 'X-CSRFToken',
+    withCredentials: true
+    });
+  
+    function submitLogout(e) {
+      e.preventDefault();
+      client.post(
+        "/api/accounts/logout",
+        {withCredentials: true}
+      ).then(function(res) {
+        navigate('/');
+      });
+    }
+
   return (
     <>
       <Navbar style={{ backgroundColor:'#35514F'}} data-bs-theme="dark" expand="lg">
-        <Container style={{pading:"0%"}}>
+        <Container className="header-container" style={{pading:"0%"}}>
           <Navbar.Brand href="/home">
             <img
               src={logo}
@@ -24,6 +49,11 @@ function Header() {
               <Nav.Link href="/post-event">Post Events</Nav.Link>
               <Nav.Link href="/your-events">Your Events</Nav.Link>
               <Nav.Link href="/hour-tracker">Hour Tracker</Nav.Link>
+              <Navbar.Text>
+               <form onSubmit={e => submitLogout(e)}>
+                  <Button type="submit" className="logout-button" variant="light">Log out</Button>
+               </form>
+             </Navbar.Text>
             </Nav>
           </Navbar.Collapse>
         </Container>
