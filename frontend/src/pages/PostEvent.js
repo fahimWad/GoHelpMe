@@ -1,5 +1,4 @@
 import Header from '../components/header'
-
 import './css/App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
@@ -38,7 +37,7 @@ function getCookie(name) {
   return cookieValue;
 }
 
-export default function PortfolioForm_Create(){
+export default function Post_Event(){
   
   //CSRF Token. Token Used to Request the post.
   const csrftoken = getCookie('csrftoken')
@@ -47,15 +46,25 @@ export default function PortfolioForm_Create(){
   const [ErrorCreate, setErrorCreate] = useState(null);
 
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [location, setLocation] = useState('');
+  const [maxattendees, setMaxattendees] = useState('');
   //Keep Defining the variables...
 
   //DEFINE STATES HERE
-function PostEvent (e) {
+  function PostEvent (e) {
     e.preventDefault();
     client.post(
-      "/api/volunteer_events/post_event",
+      "/api/volunteer_events/post_event/",
       {
         name: name,
+        description: description, 
+        date: date, 
+        time: time, 
+        location: location, 
+        maxattendees: maxattendees,
         //KEEP FILLING OUT
       },
       {
@@ -64,7 +73,7 @@ function PostEvent (e) {
         }
       }
     ).then(function(res) {;
-      navigate('/event-list');
+      navigate('/your-events');
     }).catch(function(ErrorCreate) {
       if (ErrorCreate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
@@ -77,7 +86,80 @@ function PostEvent (e) {
         setErrorCreate("Error: " + ErrorCreate.message);
       }
     });
-    //========OLD VERSION (ONLY USE FOR REFERENCE. BELOW IS BAD CODE)==========
+    
+    };
+
+    const [currentUser, setCurrentUser] = useState();
+    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+    useEffect(() => {
+      client.get("/api/volunteer_events")
+      .then(function(res) {
+        setCurrentUser(true);
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+      });
+    }, []);
+
+    //FUNCTION USED TO CONVERT STRING TO INPUT. INPUTS ARE STRINGS BY DEFAULT
+    const handleChange = (event) => {
+      // Convert the input value to an integer
+      const inputValue = parseInt(event.target.value);
+      setMaxattendees(inputValue);
+    };
+
+    if (currentUser) {
+      return(
+        <>
+        <Header/>
+        <div className="center form-container">
+          <h1 className="form-title">Post an Event</h1>
+          <Form onSubmit={e => PostEvent(e)}>
+            <Form.Group className="mb-3" controlId="formBasicEventName">
+              <Form.Label>Event Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter Event Name" value={name} onChange={e => setName(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control type="text" placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} />
+            </Form.Group>
+            
+            <Form.Group className="mb-3" controlId="formBasicDate">
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="date" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
+            </Form.Group>
+            
+            <Form.Group className="mb-3" controlId="formBasicDate">
+              <Form.Label>Date</Form.Label>
+              <Form.Control type="time" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicLocation">
+              <Form.Label>Location</Form.Label>
+              <Form.Control type="text" placeholder="Enter Location" value={location} onChange={e => setLocation(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicMaxattendees">
+              <Form.Label>Maximum Attendees</Form.Label>
+              <Form.Control type="number" placeholder="Enter Max Attendees" value={maxattendees} onChange={handleChange} />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Post Event
+            </Button>
+          </Form>
+        </div>  
+      </>
+      )
+    }
+    return(
+      <div>Not Logged In!</div>
+    )
+  }
+
+
+      //========OLD VERSION (ONLY USE FOR REFERENCE. BELOW IS BAD CODE)==========
     // const navigate = useNavigate();
       // const [formData, setFormData] = useState({
       //   name: '',
@@ -104,36 +186,6 @@ function PostEvent (e) {
       //       console.error('Error posting event', error.response ? error.response.data : error.message);
       //   }
       //========END OF BAD CODE========
-    };
-
-    const [currentUser, setCurrentUser] = useState();
-    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
-    useEffect(() => {
-      client.get("/api/accounts")
-      .then(function(res) {
-        setCurrentUser(true);
-      })
-      .catch(function(error) {
-        setCurrentUser(false);
-      });
-    }, []);
-
-    //FUNCTION USED TO CONVERT STRING TO INPUT. INPUTS ARE STRINGS BY DEFAULT
-    const handleChange = (event) => {
-      // Convert the input value to an integer
-      const inputValue = parseInt(event.target.value);
-      // Update the state with the integer value. The set should be the state change variable.
-      //setHours(inputValue);
-    };
-
-    if (currentUser) {
-      return(
-        //FILL FORM HERE BASED ON THE STATES. USE PORTFOLIOFORM_CREATE.JS AS REFERENCE.
-        <>
-        
-        </>
-        
-      )
       //=======START OF BAD CODE=========
       // axiosInstance.post('/post_event/', formData)
       //   .then((response) => {
@@ -220,8 +272,5 @@ function PostEvent (e) {
       //   </>
       // );
       //=======END OF BAD CODE=========
-  };
-  return(
-    <div>Not Logged In!</div>
-  )
-}
+  
+  
