@@ -64,7 +64,8 @@ export default function PortfolioForm_Update(){
       Authorization: `Token ${token}`
     };
     client.post(
-        `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
+        //SOMEONE NEEDS TO FIX PK ID
+        // `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
       {
         event: event,
         date: date,
