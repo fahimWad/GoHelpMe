@@ -11,7 +11,7 @@ const EventDetail = () => {
     useEffect(() => {
       const fetchEvent = async () => {
         try {
-          const response = await axiosInstance.get(`/api/volunteer_events/events/${eventId}/`);
+          const response = await axiosInstance.get(`/events/${eventId}/`);
           setEvent(response.data);
         } catch (error) {
           console.error('Error fetching event details', error);
@@ -20,10 +20,22 @@ const EventDetail = () => {
   
       fetchEvent();
     }, [eventId]);
+    
+  /*
+  useEffect(() => {
+      axiosInstance.get(`/events/${event_id}/`)
+        .then((response) => {
+          setEvent(response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching event details:', error);
+        });
+    }, [event_id]);
+    */
   
     if (!event) {
       return <p>Loading...</p>;
-    }
+  }
   
     return (
       <>

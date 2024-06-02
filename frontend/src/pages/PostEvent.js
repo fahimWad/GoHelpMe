@@ -18,17 +18,7 @@ const PostEvent = () => {
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-  /*
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        await axiosInstance.post('/api/volunteer_events/post_event/', formData);  // Correct URL
-        navigate('/api/volunteer_events/events/');
-      } catch (error) {
-        console.error('Error posting event', error);
-      }
-    };
-  */
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
@@ -42,6 +32,20 @@ const PostEvent = () => {
       }
   };
 
+/*
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  
+    axiosInstance.post('/post_event/', formData)
+      .then((response) => {
+        console.log('Event posted successfully:', response.data);
+        navigate(`/events/${response.data.event_id}`); // Navigate to event detail page
+      })
+      .catch((error) => {
+        console.error('Error posting event:', error.response.data);
+      });
+  };
+*/
     return (
       <>
         <Header />

@@ -22,16 +22,25 @@ const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
 
-export function fetchData() {
-    // implementation  
-}
-
 function Portfolio() {
     // const history = useHistory();
 
-    const[data,setData] = useState([])
+    const[data,setData] = useState([]);
+    const [sortedField, setSortedField] = React.useState(null);
+    const [sortingOrder, setSortingOrder] = useState('asc');
+
+    const sortedData = data.sort((a, b) => {
+        if (!sortedField) 
+            return 0;
+        if (a[sortedField] < b[sortedField])
+            return sortingOrder === 'asc' ? -1 : 1;
+        if (a[sortedField] > b[sortedField])
+            return sortingOrder === 'asc' ? 1 : -1;
+        return 0;
+      });
+
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/volunteer_hours_portfolio/portfolio/')
+        client.get('/api/volunteer_hours_portfolio/portfolio/')
         .then(res => {
             console.log('Data fetched:', res.data);
             setData(res.data);
@@ -58,18 +67,48 @@ function Portfolio() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Event Name</th>
-                            <th>Date of Event</th>
-                            <th>Hours Worked</th>
-                            <th>Role</th>
-                            <th>Organizer</th>
+                            <th>
+                                <span onClick={() => setSortedField('event')}>
+                                    Event Name
+                                    <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
+                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                    </button>
+                                </span>
+                            </th>
+                            <th>
+                                <span onClick={() => setSortedField('date')}>
+                                    Date of Event
+                                    <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
+                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                    </button>
+                                </span>
+                            </th>
+                            <th>
+                                <span onClick={() => setSortedField('hours')}>
+                                    Hours Worked
+                                    <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
+                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                    </button>
+                                </span>
+                            </th>
+                            <th>
+                                <span onClick={() => setSortedField('role')}>
+                                    Role
+                                    <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
+                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                    </button>
+                                </span>
+                            </th>
+                            <th>
+                                <span onClick={() => setSortedField('organizer')}>
+                                    Organizer
+                                    <button type="button" style={{ border: 'none', backgroundColor: 'transparent', color: 'black'}}>
+                                        {sortingOrder === 'asc' ? '▲' : '▼'}
+                                    </button>
+                                </span>
+                            </th>
                             <th>Description</th>
-                            <div>
-                                <PortfolioUpdateButton />
-                            </div>
-                            <div>
-                                <PortfolioDeleteButton />
-                            </div>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,8 +121,10 @@ function Portfolio() {
                                 <td>{d.organizer}</td>
                                 <td>{d.description}</td>
                                 <td>
-                                    <PortfolioUpdateButton />
-                                    <PortfolioDeleteButton />
+                                    <div className="d-flex">
+                                        <PortfolioUpdateButton />
+                                        <PortfolioDeleteButton />
+                                    </div>
                                 </td>
                             </tr>
                         ))}

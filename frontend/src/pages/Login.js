@@ -11,6 +11,7 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import logo from '../components/assets/logo.png'; 
 import { useNavigation } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
@@ -22,6 +23,20 @@ axios.defaults.withCredentials = true;
 const client = axios.create({
   baseURL: "http://127.0.0.1:8000"
 });
+
+const schoolOptions = [
+  "UCLA", 
+  "Stanford University", 
+  "MIT", 
+  "Caltech", 
+  "UCSD", 
+  "USC", 
+  "Harvard University", 
+  "UCI", 
+  "UC Berkeley", 
+  "Dartmouth University", 
+  "Cornell University"
+];
 
 function Login() {
   const navigate = useNavigate();
@@ -60,9 +75,35 @@ function Login() {
     }
   }
   
+  function validateRegistration() {
+    if (!email) {
+      return "Users must have an email address";
+    }
+    if (!username) {
+      return "Users must have a username";
+    }
+    if (!first_name) {
+      return "Users must have a first name";
+    }
+    if (!last_name) {
+      return "Users must have a last name";
+    }
+    if (!school) {
+      return "Users must have a school name";
+    }
+    return null;
+  }
+
   //Function defining Registration Form
   function submitRegistration(e) {
     e.preventDefault();
+
+    const validationError = validateRegistration();
+    if (validationError) {
+      setErrorRegistration(validationError);
+      return;
+    }
+
     client.post(
       "/api/accounts/register",
       {
@@ -94,7 +135,14 @@ function Login() {
     // error checking
     }).catch(function (error) { 
       if(error.response) {
-        setErrorRegistration(error.response.data.detail || "Registration failed. Please check your input.");
+        if (error.response.data.username) {
+          setErrorRegistration("Username already exists. Please choose a different username.");
+        }
+        if (password.length < 8) {
+          setErrorRegistration("Password must be a minimum of 8 characters.");
+        }
+        else
+          setErrorRegistration(error.response.data.detail || "Registration failed. Please check your input.");
       } else if(error.request) {
         setErrorRegistration("No response from server. Please try again later.");
       } else {
@@ -165,9 +213,18 @@ function Login() {
   //Else, If there is no activate current user, we'll return a navbar with a register button that will allow us to toggle
   return (
     <div>
-    <Navbar bg="Light" data-bs-theme="light">
+    <Navbar bg="Light" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand>GoHelpMe</Navbar.Brand>
+        <Navbar.Brand href="/">
+            <img
+              src={logo}
+              alt="GoHelpMe logo"
+              width="32"
+              height="32"
+              className="d-inline-block align-top"
+            />{' '}
+            GoHelpMe
+          </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
@@ -185,7 +242,7 @@ function Login() {
             
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
+              <Form.Control type="email" className="form-field" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -193,27 +250,32 @@ function Login() {
 
             <Form.Group className="mb-3" controlId="formBasicUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+              <Form.Control type="text" className="form-field" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicFirstName">
               <Form.Label>First Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter First Name" value={first_name} onChange={e => setFirst_name(e.target.value)} />
+              <Form.Control type="text" className="form-field" placeholder="Enter First Name" value={first_name} onChange={e => setFirst_name(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicLastName">
               <Form.Label>Last Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Last Name" value={last_name} onChange={e => setLast_name(e.target.value)} />
+              <Form.Control type="text" className="form-field" placeholder="Enter Last Name" value={last_name} onChange={e => setLast_name(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicSchool">
-              <Form.Label>School</Form.Label>
-              <Form.Control type="text" placeholder="Enter School" value={school} onChange={e => setSchool(e.target.value)} />
+            <Form.Label>School</Form.Label>
+                <Form.Select className="form-field" value={school} onChange={e => setSchool(e.target.value)}>
+                  <option value="">Select your school</option>
+                  {schoolOptions.map((schoolOption) => (
+                    <option key={schoolOption} value={schoolOption}>{schoolOption}</option>
+                  ))}
+                </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              <Form.Control type="password" className="form-field" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
             {ErrorRegistration && <p style={{ color: 'red' }}>{ErrorRegistration}</p>}
@@ -223,7 +285,7 @@ function Login() {
             </Button>
           </Form>
           <p></p> 
-          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', marginLeft: '-4%', cursor: 'pointer' }}>
               Already have an account? Login here
           </button>       
        </div>        
@@ -234,14 +296,14 @@ function Login() {
           <Form onSubmit={e => submitLogin(e)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Username</Form.Label>
-              <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
+              <Form.Control type="username" className="form-field" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+              <Form.Control type="password"  className="form-field"placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
             {ErrorLogin && <p style={{ color: 'red' }}>{ErrorLogin}</p>}
@@ -252,7 +314,7 @@ function Login() {
             </Button>
           </Form>
           <p></p>
-          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: '#35514F', textDecoration: 'underline', cursor: 'pointer' }}>
+          <button onClick={update_form_btn} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer', marginLeft: '-4%' }}>
             Don't have an account? Register here
           </button>  
         </div>

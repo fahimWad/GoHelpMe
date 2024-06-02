@@ -59,6 +59,10 @@ export default function PortfolioForm_Create(){
   // creating event
   function handleCreateClick(e) {
     e.preventDefault();
+    const token = localStorage.getItem('authToken');
+    const headers = {
+      Authorization: `Token ${token}`
+    };
     client.post(
       "/api/volunteer_hours_portfolio/create_entry/",
       {
@@ -74,9 +78,6 @@ export default function PortfolioForm_Create(){
           'X-CSRFToken': csrftoken // Include the CSRF token in the request. THIS WAS THE SOLUTION TO THE PROBLEM.
         }
       }
-      
-
-      // { headers: { 'X-CSRFToken': csrftoken } }
     ).then(function(res) {
       // fetchData();
       navigate('/hour-tracker');
