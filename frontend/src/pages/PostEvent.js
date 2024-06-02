@@ -22,10 +22,10 @@ const PostEvent = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axiosInstance.post('/api/volunteer_events/post_event/', formData);
+          const response = await axiosInstance.post('/post_event/', formData);
           if (response.status === 201) {
               const eventId = response.data.event_id;
-              navigate(`/api/volunteer_events/events/${eventId}/`);
+              navigate(`/events/${eventId}/`);
           }
       } catch (error) {
           console.error('Error posting event', error.response ? error.response.data : error.message);

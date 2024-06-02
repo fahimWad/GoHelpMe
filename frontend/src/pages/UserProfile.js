@@ -23,17 +23,6 @@ const UserProfile = () => {
       fetchProfileData();
     }, []);
 
-/*
-    useEffect(() => {
-        axiosInstance.get('/profile/')
-        .then((response) => {
-            setUserEvents(response.data);
-        })
-        .catch((error) => {
-            console.error('Error fetching user profile:', error);
-        });
-    }, []);
-*/
     return (
         <>
           <Header />

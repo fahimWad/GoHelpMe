@@ -21,20 +21,31 @@ const EventList = () => {
       fetchEvents();
     }, []);
 
+    return (
+        <div>
+          <Header />
+          <div className="container">
+            <h2>Events</h2>
+            <div className="event-grid">
+              {events.map(event => (
+                <div key={event.id} className="event-card">
+                  <h3>{event.name}</h3>
+                  <p>Date: {event.date}</p>
+                  <p>Time: {event.time}</p>
+                  <p>Location: {event.location}</p>
+                  <p>Max Attendees: {event.max_attendees}</p>
+                  <p>Current Attendees: {event.current_attendees}</p>
+                  <Link to={`/events/${event.id}`} className="details-link">Details</Link>
+                  <button className="register-button">Register</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }    
+
 /*
-const EventList = () => {
-    const [events, setEvents] = useState([]);
-  
-    useEffect(() => {
-      axiosInstance.get('/events/')
-        .then((response) => {
-          setEvents(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching events:', error);
-        });
-    }, []);
-*/
     return (
       <>
         <Header />
@@ -54,5 +65,5 @@ const EventList = () => {
       </>
     );
   };
-  
+  */
   export default EventList;
