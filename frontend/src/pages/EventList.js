@@ -95,16 +95,13 @@ function getCookie(name) {
         });
     };
     
-    if (currentUser === null) {
-      navigate('/login');
-      console.log("currentuser set to null");
-      return null;
-    }
   
     if (!currentUser) {
-      navigate('/login');
+      return(
+        <div>You're not Logged In!</div>
+      )
       console.log("not logged in");
-      return null;
+      
     }
 
     return (
