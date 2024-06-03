@@ -28,8 +28,8 @@ In order to run a local instance of GoHelpMe, follow the instructions below.
 
 1. Create a new directory and startup a virtual environment
 ```shell
-$ mkdir GoHelpMe
-$ cd GoHelpMe
+$ mkdir webapp
+$ cd webapp
 $ python3 -m venv venv
 $ source venv/bin/activate
 (venv) $ 
@@ -48,7 +48,7 @@ Receiving objects: 100% (826/826), 1.09 MiB | 3.26 MiB/s, done.
 Resolving deltas: 100% (530/530), done.
 (venv) $ 
 ```
-3. Install the requirements
+3. Install dependencies for the back end
 
 ```shell
 (venv) $ pip install -r GoHelpMe/backend/requirements.txt
@@ -76,7 +76,7 @@ Resolving deltas: 100% (530/530), done.
 #...successfully installed
 ```
 
-5. Make migrations for django web app
+5. Make migrations for back end
 ```shell
 (venv) $ python GoHelpMe/backend/manage.py makemigrations
 #...
@@ -84,25 +84,34 @@ Resolving deltas: 100% (530/530), done.
 ... OK
 ... OK
 ... OK
-(venv) $
+(venv) $ 
+
 ```
 
-6. Run the server!
+6. Run the backend server
 ```shell
-(venv) $ python manage.py runserver
+(venv) $ python GoHelpMe/backend/manage.py runserver
 Watching for file changes with StatReloader
 Performing system checks...
 
-System check identified some issues:
-
-WARNINGS:
-?: (staticfiles.W004) The directory '/.../gohelpme/test/GoHelpMe/static' in the STATICFILES_DIRS setting does not exist.
-
-System check identified 1 issue (0 silenced).
-May 29, 2024 - 05:49:46
+System check identified 10 issues (0 silenced).
+June 03, 2024 - 21:46:22
 Django version 5.0.6, using settings 'GoHelpMe.settings'
-Starting development server at http://127.0.0.1:8000/ # <--- PASTE THIS LINK INTO YOUR BROWSER
+Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
+```
+
+7. In a separate terminal, install the frontend dependencies
+```shell
+$ cd webapp
+$ source venv/bin/activate
+(venv) $ cd GoHelpMe/frontend
+(venv) $ npm -f install
+```
+
+8. Run the webapp!
+```shell
+(venv) $ npm start
 ```
 </details>
 
