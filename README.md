@@ -40,12 +40,12 @@ $ source venv/bin/activate
 ```shell
 (venv) $ git clone https://github.com/fahimWad/GoHelpMe.git
 Cloning into 'GoHelpMe'...
-remote: Enumerating objects: 347, done.
-remote: Counting objects: 100% (347/347), done.
-remote: Compressing objects: 100% (229/229), done.
-remote: Total 347 (delta 180), reused 263 (delta 110), pack-reused 0
-Receiving objects: 100% (347/347), 257.41 KiB | 2.45 MiB/s, done.
-Resolving deltas: 100% (180/180), done.
+remote: Enumerating objects: 826, done.
+remote: Counting objects: 100% (29/29), done.
+remote: Compressing objects: 100% (19/19), done.
+remote: Total 826 (delta 16), reused 12 (delta 10), pack-reused 797
+Receiving objects: 100% (826/826), 1.09 MiB | 3.26 MiB/s, done.
+Resolving deltas: 100% (530/530), done.
 (venv) $ 
 ```
 3. Install the requirements
@@ -65,19 +65,22 @@ Resolving deltas: 100% (180/180), done.
 4. Install more things manually (currently working on cleaning this up)
 ```shell
 (venv) $ pip install django
-# blah blah...Successfully installed asgiref-# django-# sqlparse-#
+# blah blah...successfully installed
 (venv) $ pip install django_filter
-#...successfully installed django_filter-24.2
+#...successfully installed
 (venv) $ python -m pip install Pillow
-#...successfully installed Pillow-10.3.0
-(venv) $
+#...successfully installed
+(venv) $ pip install djangorestframework
+#...successfully installed
+(venv) $ pip install django-cors-headers
+#...successfully installed
 ```
 
 5. Make migrations for django web app
 ```shell
-(venv) $ python manage.py makemigrations
+(venv) $ python GoHelpMe/backend/manage.py makemigrations
 #...
-(venv) $ python manage.py migrate
+(venv) $ python GoHelpMe/backend/manage.py migrate
 ... OK
 ... OK
 ... OK
