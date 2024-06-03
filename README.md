@@ -17,7 +17,9 @@ _GoHelpMe_ is a full stack web application that connects users interested in vol
 - waiting on confirmation from TAs...
 
 ## Technologies
-
+- React.js <img src="./images/react.png" alt="react.js" width="30px">
+- Django <img src="./images/django.png" alt="django" width="30px">
+- PostgreSQL <img src="./images/Postgresql_elephant.png" alt="postgresql" width="30px">
 
 
 ## Authors
