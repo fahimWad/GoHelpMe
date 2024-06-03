@@ -43,7 +43,7 @@ class event_list(APIView):
         return Response(serializer.data)
     
 class event_detail(APIView):
-    permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
+    permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
     def get(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
@@ -72,7 +72,6 @@ class register(APIView):
     #authentication_classes = (SessionAuthentication, BasicAuthentication) 
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
-    
     def get(self, request, event_id):
         event = get_object_or_404(Event, id=event_id)
         return Response((EventSerializer(event)).data)

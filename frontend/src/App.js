@@ -31,7 +31,7 @@ export default function App(){
             {/* <Route path='/portfolio-delete-event' index element={<PortfolioForm_Delete/ >} /> */}
             <Route path='/portfolio-update-event/:pk' index element={<PortfolioForm_Update/ >} />
             <Route path='/home' index element={<EventList/ >} />
-            <Route path='/event-detail' index element={<EventDetail/ >} />
+            <Route path="/event-detail/:eventId" index element={<EventDetail />} />
             <Route path='/your-events' index element={<UserProfile/ >} />
             <Route path='/post-event' index element={<PostEvent/ >} />
             <Route path='*' index element={<NoPage/ >} />
