@@ -6,6 +6,7 @@ import './css/App.css';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import './css/UserProfile.css';
+import { useNavigate } from 'react-router-dom';
 
 // AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -36,7 +37,19 @@ export default function UserProfile() {
     const csrftoken = getCookie('csrftoken');
     const [userEvents, setUserEvents] = useState({ posted: [], registered: [] });
     const [error, setError] = useState(null);
-  
+    const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
+    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+    useEffect(() => {
+      client.get("/api/accounts")
+      .then(function(res) {
+        setCurrentUser(true);
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+      });
+    }, []);
+
     useEffect(() => {
       client.get('/api/volunteer_events/profile/', {
         headers: {
@@ -53,6 +66,17 @@ export default function UserProfile() {
         });
     }, [csrftoken]);
 
+    if (currentUser === null) {
+      console.log("currentuser is null");
+      navigate('/login');
+      return null;
+    }
+  
+    if (!currentUser) {
+      console.log("user not logged in");
+      navigate('/login');
+      return null;
+    }
     return (
         <>
           <Header />
@@ -142,71 +166,4 @@ export default function UserProfile() {
           </div>
         </>
       );
-    }
-
-
-    
-/*
-    return (
-        <>
-          <Header />
-          <div className="profile-container">
-            {profileData.registered.length > 0 && (
-              <div>
-                <h2>Registered Events</h2>
-                <table className="profile-table">
-                  <thead>
-                    <tr>
-                      <th>Event Name</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {profileData.registered.map(event => (
-                      <tr key={event.id}>
-                        <td>
-                          <Link to={`/events/${event.id}`}>{event.name}</Link>
-                        </td>
-                        <td>{event.date}</td>
-                        <td>{event.time}</td>
-                        <td>{event.location}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-            {profileData.posted.length > 0 && (
-              <div>
-                <h2>Organized Events</h2>
-                <table className="profile-table">
-                  <thead>
-                    <tr>
-                      <th>Event Name</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {profileData.posted.map(event => (
-                      <tr key={event.id}>
-                        <td>
-                          <Link to={`/events/${event.id}`}>{event.name}</Link>
-                        </td>
-                        <td>{event.date}</td>
-                        <td>{event.time}</td>
-                        <td>{event.location}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </>
-      );
-    };
-*/
+  }

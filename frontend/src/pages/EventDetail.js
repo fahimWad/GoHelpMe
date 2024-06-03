@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios';
 import axios from 'axios';
 import './css/EventDetail.css';
+//import { useNavigate } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -37,6 +38,18 @@ export default function EventDetail() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [error, setError] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
+    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+    useEffect(() => {
+      client.get("/api/accounts")
+      .then(function(res) {
+        setCurrentUser(true);
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+      });
+    }, []);
 
   useEffect(() => {
       client.get(`/api/volunteer_events/events/${eventId}/`, 
@@ -53,6 +66,18 @@ export default function EventDetail() {
           console.log("Error fetching event details:", error);
       });
   }, [eventId, csrftoken]);
+
+  if (currentUser === null) {
+    console.log("currentuser set to null");
+    navigate('/login');
+    return null;
+  }
+
+  if (!currentUser) {
+    console.log("user not signed in");
+    navigate('/login');
+    return null;
+  }
 
   if (error) {
     return (
@@ -75,21 +100,7 @@ export default function EventDetail() {
         </>
     );
   }
-/*
-  const [currentUser, setCurrentUser] = useState();
-  //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
-  useEffect(() => {
-    client.get("/api/accounts")
-    .then(function(res) {
-      setCurrentUser(true);
-    })
-    .catch(function(error) {
-      setCurrentUser(false);
-    });
-  }, []);
-*/
-//  if (currentUser) {
-    return (
+  return (
       <>
         <Header />
         <div className="event-detail-container">
@@ -118,5 +129,4 @@ export default function EventDetail() {
         </div>
     </>
     );
-  }
-//}
+}

@@ -52,7 +52,18 @@ export default function Post_Event(){
   const [location, setLocation] = useState('');
   const [maxattendees, setMaxattendees] = useState('');
   //Keep Defining the variables...
-
+  const [currentUser, setCurrentUser] = useState();
+    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+    useEffect(() => {
+      client.get("/api/accounts")
+      .then(function(res) {
+        setCurrentUser(true);
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+      });
+    }, []);
+    
   //DEFINE STATES HERE
   function PostEvent (e) {
     console.log(name)
@@ -95,18 +106,6 @@ export default function Post_Event(){
     
     };
 
-    const [currentUser, setCurrentUser] = useState();
-    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
-    useEffect(() => {
-      client.get("/api/accounts")
-      .then(function(res) {
-        setCurrentUser(true);
-      })
-      .catch(function(error) {
-        setCurrentUser(false);
-      });
-    }, []);
-
     //FUNCTION USED TO CONVERT STRING TO INPUT. INPUTS ARE STRINGS BY DEFAULT
     const handleChange = (event) => {
       // Convert the input value to an integer
@@ -132,12 +131,12 @@ export default function Post_Event(){
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicDate">
-              <Form.Label>Date</Form.Label>
+              <Form.Label>Date MM/DD/YYYY</Form.Label>
               <Form.Control type="text" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicDate">
-              <Form.Label>Time</Form.Label>
+              <Form.Label>Time HH:MM AM/PM</Form.Label>
               <Form.Control type="text" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
             </Form.Group>
 
@@ -159,9 +158,9 @@ export default function Post_Event(){
       </>
       )
     }
-    return(
-      <div>Not Logged In!</div>
-    )
+    else {
+      navigate('/login');
+    }
   }
 
 
