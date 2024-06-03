@@ -94,7 +94,7 @@ class user_profile(APIView):
         posted_events = request.user.organized_events.all()
         registered_events = request.user.events_registered.all()
         all_events = {'posted':posted_events, 'registered':registered_events}
-        serializer = UserEventsSerializer(all_events)
+        serializer = UserProfileSerializer(all_events)
         return Response(serializer.data)
 
 # @login_required

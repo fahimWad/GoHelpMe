@@ -1,0 +1,58 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1, h2 {
+    color: #35514F;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    color: #35514F;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .table th, .table td, .table ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .table ul li {
+    padding: 4px 0;
+  }
+  
+  .card button {
+    background-color: #35514F;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .card button:hover {
+    background-color: #2a403d;
+  }

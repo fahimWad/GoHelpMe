@@ -88,7 +88,7 @@ export default function EventDetail() {
     });
   }, []);
 */
- // if (currentUser) {
+//  if (currentUser) {
     return (
       <>
         <Header />
@@ -118,5 +118,5 @@ export default function EventDetail() {
         </div>
     </>
     );
- // }
-}
+  }
+//}
