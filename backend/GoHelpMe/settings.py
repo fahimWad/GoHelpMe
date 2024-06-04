@@ -13,10 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from os import path
 from pathlib import Path
-import environ
+from dotenv import load_dotenv
 # Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k@al725mvf$$0kwf&p&+8r-xx04vzv@@uj2&aypqgc^dyz$h(8'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -105,11 +104,11 @@ WSGI_APPLICATION = 'GoHelpMe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER' : 'SuperUser',
-        'PASSWORD' : 'GetEgged',
-        'HOST': 'go-help-me.cz6gaq02yzqh.us-east-2.rds.amazonaws.com',
-        'PORT': '5432'
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER' : os.getenv('DATABASE_USER'),
+        'PASSWORD' : os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT')
     }
 }
 
