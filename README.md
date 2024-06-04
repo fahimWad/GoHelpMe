@@ -50,54 +50,35 @@ pip install --upgrade pip
 
 4. Install more things manually (currently working on cleaning this up)
 ```shell
-(venv) $ pip install django
-# blah blah...successfully installed
-(venv) $ pip install django_filter
-#...successfully installed
-(venv) $ python -m pip install Pillow
-#...successfully installed
-(venv) $ pip install djangorestframework
-#...successfully installed
-(venv) $ pip install django-cors-headers
-#...successfully installed
+pip install django
+pip install django_filter
+python -m pip install Pillow
+pip install djangorestframework
+pip install django-cors-headers
 ```
 
 5. Make migrations for back end
 ```shell
-(venv) $ python GoHelpMe/backend/manage.py makemigrations
-#...
-(venv) $ python GoHelpMe/backend/manage.py migrate
-... OK
-... OK
-... OK
-(venv) $ 
-
+python GoHelpMe/backend/manage.py makemigrations
+python GoHelpMe/backend/manage.py migrate
 ```
 
 6. Run the backend server
 ```shell
-(venv) $ python GoHelpMe/backend/manage.py runserver
-Watching for file changes with StatReloader
-Performing system checks...
-
-System check identified 10 issues (0 silenced).
-June 03, 2024 - 21:46:22
-Django version 5.0.6, using settings 'GoHelpMe.settings'
-Starting development server at http://127.0.0.1:8000/
-Quit the server with CONTROL-C.
+python GoHelpMe/backend/manage.py runserver
 ```
 
 7. In a separate terminal, install the frontend dependencies
 ```shell
-$ cd webapp
-$ source venv/bin/activate
-(venv) $ cd GoHelpMe/frontend
-(venv) $ npm -f install
+cd webapp
+source venv/bin/activate
+cd GoHelpMe/frontend
+npm -f install
 ```
 
 8. Run the webapp!
 ```shell
-(venv) $ npm start
+npm start
 ```
 </details>
 
