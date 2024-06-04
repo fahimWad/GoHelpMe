@@ -104,11 +104,11 @@ WSGI_APPLICATION = 'GoHelpMe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
-        'USER' : 'postgres',
+        'USER' : 'SuperUser',
         'PASSWORD' : 'GetEgged',
-        'HOST': 'localhost',
+        'HOST': 'go-help-me.cz6gaq02yzqh.us-east-2.rds.amazonaws.com',
         'PORT': '5432'
     }
 }
