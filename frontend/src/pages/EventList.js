@@ -40,7 +40,7 @@ function getCookie(name) {
     const csrftoken = getCookie('csrftoken')
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState();
     const navigate = useNavigate();
     //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
     useEffect(() => {
@@ -95,7 +95,7 @@ function getCookie(name) {
         });
     };
     
-  
+  /*
     if (!currentUser) {
       console.log("user not logged in");
       navigate('/login');
@@ -107,8 +107,9 @@ function getCookie(name) {
       console.log("not logged in");
       
     }
-
-    return (
+    */
+    if (currentUser) {
+      return (
         <>
           <Header />
           <div className="container">
@@ -137,4 +138,9 @@ function getCookie(name) {
           </div>
         </>
       );
+    }
+    else {
+      console.log("from eventlist you are not logged in");
+      navigate('/login');
+    }
   }

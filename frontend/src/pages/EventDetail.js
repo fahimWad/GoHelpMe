@@ -38,7 +38,7 @@ export default function EventDetail() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [error, setError] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
     //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
     useEffect(() => {
@@ -66,19 +66,20 @@ export default function EventDetail() {
           console.log("Error fetching event details:", error);
       });
   }, [eventId, csrftoken]);
-
+/*
   if (currentUser === null) {
     console.log("currentuser set to null");
     navigate('/login');
     return null;
   }
-
+*/
+/*
   if (!currentUser) {
-    console.log("user not signed in");
+    console.log("eventdetail js msg user not signed in");
     navigate('/login');
     return null;
   }
-
+*/
   if (error) {
     return (
         <>
@@ -100,7 +101,8 @@ export default function EventDetail() {
         </>
     );
   }
-  return (
+  if (currentUser) {
+    return (
       <>
         <Header />
         <div className="event-detail-container">
@@ -129,4 +131,9 @@ export default function EventDetail() {
         </div>
     </>
     );
+  }
+  else {
+    console.log("from eventdetail you are not logged in");
+    navigate('/login');
+  }
 }

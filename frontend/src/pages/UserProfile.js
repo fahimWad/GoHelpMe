@@ -37,7 +37,7 @@ export default function UserProfile() {
     const csrftoken = getCookie('csrftoken');
     const [userEvents, setUserEvents] = useState({ posted: [], registered: [] });
     const [error, setError] = useState(null);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState();
     const navigate = useNavigate();
     //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
     useEffect(() => {
@@ -65,19 +65,21 @@ export default function UserProfile() {
           console.log("error fetching user events for profile");
         });
     }, [csrftoken]);
-
+/*
     if (currentUser === null) {
       console.log("currentuser is null");
       navigate('/login');
       return null;
     }
-  
+
     if (!currentUser) {
-      console.log("user not logged in");
+      console.log("from event profile user not logged in");
       navigate('/login');
       return null;
     }
-    return (
+*/
+    if (currentUser) {
+      return (
         <>
           <Header />
           <div className="container">
@@ -108,7 +110,7 @@ export default function UserProfile() {
                           <td>{event.current_attendees}</td>
                           <td>
                             <Link to={`/event-detail/${event.id}`}>
-                              <Button variant="outline-primary">Event Detail</Button>
+                              <Button variant="outline-primary" className="m-2">Event Detail</Button>
                             </Link>
                           </td>
                         </tr>
@@ -151,7 +153,7 @@ export default function UserProfile() {
                           </td>
                           <td>
                             <Link to={`/event-detail/${event.id}`}>
-                              <Button variant="outline-primary">Event Detail</Button>
+                              <Button variant="outline-primary" className="m-2">Event Detail</Button>
                             </Link>
                           </td>
                         </tr>
@@ -166,4 +168,9 @@ export default function UserProfile() {
           </div>
         </>
       );
+    }
+    else {
+      console.log("from event profile user not logged in");
+      navigate('/login');
+    }
   }
