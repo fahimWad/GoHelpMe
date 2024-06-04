@@ -290,8 +290,6 @@ function Portfolio() {
             </div>
 
         </div>
-        
-
     </>
     )
 

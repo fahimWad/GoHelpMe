@@ -3,14 +3,27 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from './assets/logo.png'; 
 import '../pages/css/Header.css'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'; // Import axios
 import { useNavigate } from 'react-router-dom'; 
+import { UserContext } from './UserContext';  // Import context
+
 
 function Header() {
+  const [currentUser, setCurrentUser] = useState();
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    client.get("/api/accounts")
+    .then(function(res) {
+      setCurrentUser(true);
+    })
+    .catch(function(error) {
+      setCurrentUser(false);
+    });
+  }, []);  
+
   const client = axios.create({
     baseURL: "http://127.0.0.1:8000",
     // AXIOS VARIABLES FOR SECURITY PURPOSES
@@ -26,6 +39,7 @@ function Header() {
         {withCredentials: true}
       ).then(function(res) {
         navigate('/');
+        setCurrentUser(false);
       });
     }
 

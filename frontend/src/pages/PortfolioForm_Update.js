@@ -167,7 +167,7 @@ export default function PortfolioForm_Update(){
     </>
     )
   }
-  return(
-    <div>Not Logged In!</div>
-  )
+  else {
+    navigate('/login');
+  }
 }

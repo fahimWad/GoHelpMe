@@ -157,7 +157,7 @@ export default function PortfolioForm_Create(){
     </>
     )
   }
-  return(
-    <div>Not Logged In!</div>
-  )
+  else {
+    navigate('/login');
+}
 }

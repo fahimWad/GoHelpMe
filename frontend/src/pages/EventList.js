@@ -97,9 +97,13 @@ function getCookie(name) {
     
   
     if (!currentUser) {
-      return(
-        <div>You're not Logged In!</div>
-      )
+      console.log("user not logged in");
+      navigate('/login');
+      return null;
+      //return(
+        
+        //<div>You're not Logged In!</div>
+      //)
       console.log("not logged in");
       
     }
