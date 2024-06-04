@@ -27,12 +27,12 @@ In order to run a local instance of GoHelpMe, follow the instructions below.
 <details><summary><b>Show instructions</b></summary>
 
 1. Create a new directory and startup a virtual environment
+
 ```shell
-$ mkdir webapp
-$ cd webapp
-$ python3 -m venv venv
-$ source venv/bin/activate
-(venv) $ 
+mkdir webapp
+cd webapp
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 2. Clone this repository and change into its directory
