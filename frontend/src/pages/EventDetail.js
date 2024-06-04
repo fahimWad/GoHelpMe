@@ -48,6 +48,7 @@ export default function EventDetail() {
       })
       .catch(function(error) {
         setCurrentUser(false);
+        navigate('/login');
       });
     }, []);
 
@@ -132,8 +133,10 @@ export default function EventDetail() {
     </>
     );
   }
+  /*
   else {
     console.log("from eventdetail you are not logged in");
     navigate('/login');
   }
+  */
 }

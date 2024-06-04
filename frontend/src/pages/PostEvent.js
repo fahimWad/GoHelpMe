@@ -61,6 +61,7 @@ export default function Post_Event(){
       })
       .catch(function(error) {
         setCurrentUser(false);
+        navigate('/login');
       });
     }, []);
     
@@ -158,9 +159,11 @@ export default function Post_Event(){
       </>
       )
     }
+    /*
     else {
       navigate('/login');
     }
+    */
   }
 
 

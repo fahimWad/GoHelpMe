@@ -50,6 +50,7 @@ function getCookie(name) {
       })
       .catch(function(error) {
         setCurrentUser(false);
+        navigate('/login');
       });
     }, []);
 
@@ -139,8 +140,10 @@ function getCookie(name) {
         </>
       );
     }
+    /*
     else {
       console.log("from eventlist you are not logged in");
       navigate('/login');
     }
+    */
   }

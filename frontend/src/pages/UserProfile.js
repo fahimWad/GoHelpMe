@@ -47,6 +47,7 @@ export default function UserProfile() {
       })
       .catch(function(error) {
         setCurrentUser(false);
+        navigate('/login');
       });
     }, []);
 
@@ -169,8 +170,10 @@ export default function UserProfile() {
         </>
       );
     }
+    /*
     else {
       console.log("from event profile user not logged in");
       navigate('/login');
     }
+    */
   }
