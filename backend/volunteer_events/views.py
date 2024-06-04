@@ -18,19 +18,14 @@ import sys
 class post_event(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication]
-    # def get(self, request):
-    #     form = EventForm()
-    #     return Response({'form':form})
     def post(self, request):
         # View to handle event posting
             form = EventForm(request.data)
-            # print(request.data,sys.stderr)
             if form.is_valid():
 
                 event = form.save(commit=False)  # Create an event instance but don't save it yet
                 event.organizer = request.user  # Set the current user as the organizer
                 event.save()  # Save the event to the database  # Success message
-                #return Response({'message' : 'Event posted successfully.'},status=status.HTTP_201_CREATED)  Redirect to the event detail page
                 return Response({'message': 'Event posted successfully.', 'event_id': event.id}, status=status.HTTP_201_CREATED)
             return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -52,24 +47,8 @@ class event_detail(APIView):
         else:
             serializer = EventSerializer(event)
         return Response(serializer.data)
-# def event_detail(request, event_id):
-#     # View to show event details
-#     event = get_object_or_404(Event, id=event_id)  # Retrieve the event or show 404 error
-#     if request.user == event.organizer:
-#         registered_attendees = event.registered_users.all()
-#         return render(request, 'event_detail.html', {'event': event, 'registered_attendees': registered_attendees})
-#     else:
-#         return render(request, 'event_detail.html', {'event': event})
-    
-#     #registered_users = EventRegistration.objects.filter(event=event)  # Get registered users for the event
-#     #registration_form = EventRegistrationForm()  # Create an empty registration form
-#     #return render(request, 'event_detail.html', {
-#     #    'event': event,
-#     #    'registered_users': registered_users,
-#     #    'registration_form': registration_form,
+
 class register(APIView):
-    #permission_classes = (permissions.IsAuthenticated, BasicAuthentication)
-    #authentication_classes = (SessionAuthentication, BasicAuthentication) 
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,) 
     def get(self, request, event_id):
@@ -97,13 +76,3 @@ class user_profile(APIView):
         serializer = UserProfileSerializer(all_events)
         return Response(serializer.data)
 
-# @login_required
-# def user_profile(request):
-#     # Fetch events the user has posted
-#     posted_events = request.user.organized_events.all()
-#     # Fetch events the user has registered for
-#     registered_events = request.user.events_registered.all()
-#     return render(request, 'user_profile.html', {
-#         'posted_events': posted_events,
-#         'registered_events': registered_events,
-#     })

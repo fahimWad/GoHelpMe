@@ -3,9 +3,6 @@ from django.urls import path
 from . import views
 
 
-# router = DefaultRouter()
-# router.register(r'entries', EntryViewSet)
-
 urlpatterns = [
     path('/post_event/', views.post_event.as_view(), name='post_event'),  # URL for posting a new event
     path('/events/', views.event_list.as_view(), name='event_list'),  # URL for listing events

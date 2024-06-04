@@ -135,14 +135,19 @@ function Login() {
     // error checking
     }).catch(function (error) { 
       if(error.response) {
-        if (error.response.data.username) {
+        if(error.response.data.email){
+          setErrorRegistration("Email already exists. Please choose a different email.");
+        }
+        else if (error.response.data.username) {
           setErrorRegistration("Username already exists. Please choose a different username.");
         }
-        if (password.length < 8) {
+        else if (password.length < 8) {
           setErrorRegistration("Password must be a minimum of 8 characters.");
         }
-        else
-          setErrorRegistration(error.response.data.detail || "Registration failed. Please check your input.");
+        else{
+          setErrorRegistration("Registration failed. Please check your input.");
+        }
+          
       } else if(error.request) {
         setErrorRegistration("No response from server. Please try again later.");
       } else {

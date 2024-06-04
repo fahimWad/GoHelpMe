@@ -78,6 +78,7 @@ export default function PortfolioForm_Create(){
       // fetchData();
       navigate('/hour-tracker');
     }).catch(function(ErrorCreate) {
+      // console.log(ErrorCreate.response)
       if (ErrorCreate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
         setErrorCreate("Error: Missing inputs ");
