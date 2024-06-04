@@ -41,17 +41,6 @@ source venv/bin/activate
 git clone https://github.com/fahimWad/GoHelpMe.git
 ```
 
-> Your terminal should output something like this:
-> ```
-> Cloning into 'GoHelpMe'...
-> remote: Enumerating objects: 826, done.
-> remote: Counting objects: 100% (29/29), done.
-> remote: Compressing objects: 100% (19/19), done.
-> remote: Total 826 (delta 16), reused 12 (delta 10), pack-reused 797
-> Receiving objects: 100% (826/826), 1.09 MiB | 3.26 MiB/s, done.
-> Resolving deltas: 100% (530/530), done.
-> ```
-
 3. Install dependencies for the back end
 
 ```shell
