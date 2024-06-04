@@ -56,6 +56,24 @@ export default function PortfolioForm_Update(){
   const [organizer, setOrganizer] = useState('');
   const [description, setDescription] = useState('');
 
+  useEffect(() => {
+    if (pk) {
+      client.get(`/api/volunteer_hours_portfolio/update_entry/${pk}/`)
+      .then(res => {
+        const data = res.data;
+        setEvent(data.event);
+        setDate(data.date);
+        setHours(data.hours);
+        setRole(data.role);
+        setOrganizer(data.organizer);
+        setDescription(data.description);
+      })
+      .catch(err => {
+        navigate('/hour-tracker');
+      });
+    }
+  }, [pk, navigate]);
+
   // creating event
   function clickUpdate(e) {
     e.preventDefault();
@@ -63,7 +81,7 @@ export default function PortfolioForm_Update(){
     const headers = {
       Authorization: `Token ${token}`
     };
-    client.post(
+    client.get(
         `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
       {
         event: event,
@@ -89,7 +107,7 @@ export default function PortfolioForm_Update(){
     }).catch(function(ErrorUpdate) {
       if (ErrorUpdate.response) {
         // Request was made and server responded with a status code outside the range of 2xx
-        setErrorUpdate("Error: Missing inputs");
+        setErrorUpdate("Error: " + ErrorUpdate.response);
       } else if (ErrorUpdate.request) {
         // Request was made but no response was received
         setErrorUpdate("Error request: " + ErrorUpdate.request);
