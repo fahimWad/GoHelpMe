@@ -69,6 +69,7 @@ function Portfolio() {
         })
         .catch(function(error) {
         setCurrentUser(false);
+        navigate('/login');
         });
     }, []);
 
@@ -149,7 +150,7 @@ function Portfolio() {
         });
     }, [])
 
-    if (currentUser) {
+    // if (currentUser) {
       return(
         <>
         <Header>
@@ -307,10 +308,10 @@ function Portfolio() {
         </div>
     </>
       )
-    }
-    else {
-        navigate('/login');
-    }
+    // }
+    // else {
+    //     navigate('/login');
+    // }
 }
 
 export default Portfolio;

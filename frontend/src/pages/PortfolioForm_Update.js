@@ -109,6 +109,7 @@ export default function PortfolioForm_Update(){
     })
     .catch(function(error) {
       setCurrentUser(false);
+      navigate('/login');
     });
   }, []);
 
@@ -118,7 +119,7 @@ export default function PortfolioForm_Update(){
       setHours(hours);
   };
 
-  if (currentUser) {
+  // if (currentUser) {
     return(
         <>
         <Header/>
@@ -166,8 +167,8 @@ export default function PortfolioForm_Update(){
 
     </>
     )
-  }
-  else {
-    navigate('/login');
-  }
+  // }
+  // else {
+  //   navigate('/login');
+  // }
 }
