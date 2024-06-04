@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from os import path
 from pathlib import Path
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +31,7 @@ SECRET_KEY = 'django-insecure-k@al725mvf$$0kwf&p&+8r-xx04vzv@@uj2&aypqgc^dyz$h(8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'http://127.0.0.1:8000','*']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -97,10 +101,15 @@ WSGI_APPLICATION = 'GoHelpMe.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER' : 'postgres',
+        'PASSWORD' : 'GetEgged',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
