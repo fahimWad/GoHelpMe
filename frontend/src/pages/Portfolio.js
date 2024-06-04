@@ -7,6 +7,7 @@ import PortfolioUpdateButton from '../components/portfolio_update_button'
 import './css/App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // import Container from 'react-bootstrap/Container';
 // import Navbar from 'react-bootstrap/Navbar';
@@ -45,6 +46,7 @@ function Portfolio() {
     //CSRF Token. Token Used to Request the post.
     const csrftoken = getCookie('csrftoken')
 
+    const navigate = useNavigate();
     const[data,setData] = useState([]);
     const[sortedField, setSortedField] = React.useState(null);
     const[sortingEventOrder, setSortingEventOrder] = useState('desc');
@@ -57,6 +59,18 @@ function Portfolio() {
     const[searchHours, setSearchHours] = useState('');
     const[searchRole, setSearchRole] = useState('');
     const[searchOrganizer, setSearchOrganizer] = useState('');
+
+    const [currentUser, setCurrentUser] = useState();
+    //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
+    useEffect(() => {
+        client.get("/api/accounts")
+        .then(function(res) {
+        setCurrentUser(true);
+        })
+        .catch(function(error) {
+        setCurrentUser(false);
+        });
+    }, []);
 
     const sortedData = data.sort((a, b) => {
         if (!sortedField) 
@@ -135,7 +149,8 @@ function Portfolio() {
         });
     }, [])
 
-    return(
+    if (currentUser) {
+      return(
         <>
         <Header>
         </Header>
@@ -291,8 +306,11 @@ function Portfolio() {
 
         </div>
     </>
-    )
-
+      )
+    }
+    else {
+        navigate('/login');
+    }
 }
 
 export default Portfolio;
