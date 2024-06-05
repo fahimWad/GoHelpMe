@@ -81,7 +81,7 @@ export default function PortfolioForm_Update(){
     const headers = {
       Authorization: `Token ${token}`
     };
-    client.get(
+    client.post(
         `/api/volunteer_hours_portfolio/update_entry/${pk}/`,
       {
         event: event,
@@ -104,17 +104,9 @@ export default function PortfolioForm_Update(){
         setOrganizer(res.data.organizer);
         setDescription(res.data.description);
         navigate('/hour-tracker');
-    }).catch(function(ErrorUpdate) {
-      if (ErrorUpdate.response) {
-        // Request was made and server responded with a status code outside the range of 2xx
-        setErrorUpdate("Error: " + ErrorUpdate.response);
-      } else if (ErrorUpdate.request) {
-        // Request was made but no response was received
-        setErrorUpdate("Error request: " + ErrorUpdate.request);
-      } else {
-        // Something else happened in making the request
-        setErrorUpdate("Error: " + ErrorUpdate.message);
-      }
+    }).catch(function(error) {
+      console.error("Error updating event:", error)
+      setErrorUpdate("Error updating event. Please try again later.")
     });
   }
   const [currentUser, setCurrentUser] = useState();
