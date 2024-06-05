@@ -51,6 +51,7 @@ export default function Post_Event(){
   const [time, setTime] = useState('');
   const [location, setLocation] = useState('');
   const [maxattendees, setMaxattendees] = useState('');
+  const [formErrors, setFormErrors] = useState({});
   //Keep Defining the variables...
   const [currentUser, setCurrentUser] = useState();
     //Use Effect Hook to determine whether or not the user is logged in by sending a user request to Django API
@@ -64,7 +65,30 @@ export default function Post_Event(){
         navigate('/login');
       });
     }, []);
-    
+
+    const validateForm = () => {
+      const errors = {};
+      const datePattern = /^(0?[1-9]|1[0-2])\/(0?[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+      const timePattern = /^(0?[1-9]|1[0-2]):([0-5][0-9]) ?([AaPp][Mm])$/;
+  
+      if (!date.match(datePattern)) {
+        errors.date = 'Date must be in MM/DD/YYYY format';
+      }
+  
+      if (!time.match(timePattern)) {
+        errors.time = 'Time must be in HH:MM AM/PM format';
+      }
+  
+      if (!name) errors.name = 'Event name is required';
+      if (!description) errors.description = 'Description is required';
+      if (!location) errors.location = 'Location is required';
+      if (!maxattendees) errors.maxattendees = 'Max attendees is required';
+      if (maxattendees <= 0) errors.maxattendees = 'Max attendees must be greater than 0';
+  
+      setFormErrors(errors);
+      return Object.keys(errors).length === 0;
+    };
+
   //DEFINE STATES HERE
   function PostEvent (e) {
     console.log(name)
@@ -74,6 +98,9 @@ export default function Post_Event(){
     console.log(location)
     console.log(maxattendees)
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     client.post(
       "/api/volunteer_events/post_event/",
       {
@@ -123,32 +150,38 @@ export default function Post_Event(){
           <Form onSubmit={e => PostEvent(e)}>
             <Form.Group className="mb-3" controlId="formBasicEventName">
               <Form.Label>Event Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Event Name" value={name} onChange={e => setName(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Event Name" value={name} onChange={e => setName(e.target.value)} isInvalid={!!formErrors.name}/>
+              <Form.Control.Feedback type="invalid">{formErrors.name}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDescription">
               <Form.Label>Description</Form.Label>
-              <Form.Control type="text" placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Description" value={description} onChange={e => setDescription(e.target.value)} isInvalid={!!formErrors.description}/>
+              <Form.Control.Feedback type="invalid">{formErrors.description}</Form.Control.Feedback>
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicDate">
               <Form.Label>Date MM/DD/YYYY</Form.Label>
-              <Form.Control type="text" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Date" value={date} onChange={e => setDate(e.target.value)} isInvalid={!!formErrors.date}/>
+              <Form.Control.Feedback type="invalid">{formErrors.date}</Form.Control.Feedback>
             </Form.Group>
             
-            <Form.Group className="mb-3" controlId="formBasicDate">
+            <Form.Group className="mb-3" controlId="formBasicTime">
               <Form.Label>Time HH:MM AM/PM</Form.Label>
-              <Form.Control type="text" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Time" value={time} onChange={e => setTime(e.target.value)} isInvalid={!!formErrors.time}/>
+              <Form.Control.Feedback type="invalid">{formErrors.time}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicLocation">
               <Form.Label>Location</Form.Label>
-              <Form.Control type="text" placeholder="Enter Location" value={location} onChange={e => setLocation(e.target.value)} />
+              <Form.Control type="text" placeholder="Enter Location" value={location} onChange={e => setLocation(e.target.value)} isInvalid={!!formErrors.location}/>
+              <Form.Control.Feedback type="invalid">{formErrors.location}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicMaxattendees">
               <Form.Label>Maximum Attendees</Form.Label>
-              <Form.Control type="number" placeholder="Enter Max Attendees" value={maxattendees} onChange={handleChange} />
+              <Form.Control type="number" placeholder="Enter Max Attendees" value={maxattendees} onChange={handleChange} isInvalid={!!formErrors.maxattendees}/>
+              <Form.Control.Feedback type="invalid">{formErrors.maxattendees}</Form.Control.Feedback>
             </Form.Group>
 
             <Button variant="primary" type="submit">

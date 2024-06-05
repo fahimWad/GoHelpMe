@@ -7,6 +7,7 @@ import './css/App.css';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { formatDate, formatTime } from './utils';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -124,8 +125,8 @@ function getCookie(name) {
               {events.map(event => (
                 <div key={event.id} className="card">
                   <h3>{event.name}</h3>
-                  <p>Date: {event.date}</p>
-                  <p>Time: {event.time}</p>
+                  <p>Date: {formatDate(event.date)}</p>
+                  <p>Time: {formatTime(event.time)}</p>
                   <p>Location: {event.location}</p>
                   <p>Max Attendees: {event.max_attendees}</p>
                   <p>Current Attendees: {event.current_attendees}</p>

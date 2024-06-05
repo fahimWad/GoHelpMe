@@ -7,6 +7,8 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import './css/UserProfile.css';
 import { useNavigate } from 'react-router-dom';
+import { formatDate, formatTime } from './utils';
+
 
 // AXIOS VARIABLES ARE FOR SECURITY PURPOSES
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -106,8 +108,8 @@ export default function UserProfile() {
                         <tr key={event.id}>
                           <td>{event.name}</td>
                           <td>{event.location}</td>
-                          <td>{event.date}</td>
-                          <td>{event.time}</td>
+                          <td>{formatDate(event.date)}</td>
+                          <td>{formatTime(event.time)}</td>
                           <td>{event.current_attendees}</td>
                           <td>
                             <Link to={`/event-detail/${event.id}`}>
@@ -142,8 +144,8 @@ export default function UserProfile() {
                         <tr key={event.id}>
                           <td>{event.name}</td>
                           <td>{event.location}</td>
-                          <td>{event.date}</td>
-                          <td>{event.time}</td>
+                          <td>{formatDate(event.date)}</td>
+                          <td>{formatTime(event.time)}</td>
                           <td>{event.current_attendees}</td>
                           <td>
                             <ul>

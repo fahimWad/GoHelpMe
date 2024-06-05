@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../axios';
 import axios from 'axios';
 import './css/EventDetail.css';
+import { formatDate, formatTime } from './utils';
 //import { useNavigate } from 'react-router-dom';
 
 //AXIOS VARIABLES ARE FOR SECURITY PURPOSES
@@ -109,8 +110,8 @@ export default function EventDetail() {
         <div className="event-detail-container">
             <div className="event-detail-box">
                 <h2>{event.name}</h2>
-                <p><strong>Date:</strong> {event.date}</p>
-                <p><strong>Time:</strong> {event.time}</p>
+                <p><strong>Date:</strong> {formatDate(event.date)}</p>
+                <p><strong>Time:</strong> {formatTime(event.time)}</p>
                 <p><strong>Location:</strong> {event.location}</p>
                 <p><strong>Description:</strong> {event.description}</p>
                 <p><strong>Max Attendees:</strong> {event.max_attendees}</p>
