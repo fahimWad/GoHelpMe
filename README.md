@@ -80,7 +80,7 @@ npm start
 </details>
 
 ## Authors
-_GoHelpMe_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Winter 2022. 
+_GoHelpMe_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. 
 
 **Made by**: Marc Luzuriaga, Claire Li, Avinash Swain, Evelyn Cho, Fahim Wadhwania, & Palak Parikh
 
