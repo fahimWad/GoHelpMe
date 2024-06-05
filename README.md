@@ -19,7 +19,7 @@ _GoHelpMe_ is a full stack web application that connects users interested in vol
 ## Technologies
 - React.js <img src="./images/react.png" alt="react.js" width="30px">
 - Django <img src="./images/django.png" alt="django" width="30px">
-- PostgreSQL <img src="./images/Postgresql_elephant.png" alt="postgresql" width="30px">
+- PostgreSQL <img src="./images/Postgresql_elephant.png" alt="postgresql" width="30px"> (hosted on AWS <img src="./images/AWS_Simple_Icons_AWS_Cloud.svg.png" alt="aws" width="30px">)
 
 ## Setup
 In order to run a local instance of GoHelpMe, follow the instructions below.
