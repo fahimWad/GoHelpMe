@@ -14,7 +14,14 @@ _GoHelpMe_ is a full stack web application that connects users interested in vol
 
 ## Features
 
-- waiting on confirmation from TAs...
+- **Sign-up for Events**: From our homepage, users will able to sign-up for events that they would like to volunteer at.
+- **Track Volunteer Hours**: Using our Hour Tracker, users can make a portfolio of their volunteering experiences so they can reference it for later.
+- **Sort Volunteer Experiences**: In addition to tracking their experiences, users can easily sort the portfolio based on event name, date, hours, role, and organizer name for easier lookup.
+
+> We also added some additional features as well:
+> - Event organizers can access a list of their registered volunteers’ information (name and email)
+> - Ability to track all the events you have created
+> - Ability to track all all the events you have signed up to volunteer for
 
 ## Technologies
 - React.js <img src="./images/react.png" alt="react.js" width="30px">
