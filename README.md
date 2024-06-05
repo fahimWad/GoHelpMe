@@ -54,18 +54,21 @@ git clone https://github.com/fahimWad/GoHelpMe.git
 pip install -r GoHelpMe/backend/requirements.txt
 pip install --upgrade pip
 ```
-4. Make migrations for back end
+
+4. Download the .env file (emailed to you) into `webapp/GoHelpMe/backend/GoHelpMe`
+  
+5. Make migrations for back end
 ```shell
 python GoHelpMe/backend/manage.py makemigrations
 python GoHelpMe/backend/manage.py migrate
 ```
 
-5. Run the backend server
+6. Run the backend server
 ```shell
 python GoHelpMe/backend/manage.py runserver
 ```
 
-6. In a separate terminal, install the frontend dependencies
+7. In a separate terminal, install the frontend dependencies
 ```shell
 cd webapp
 source venv/bin/activate
@@ -73,7 +76,7 @@ cd GoHelpMe/frontend
 npm -f install
 ```
 
-7. Run the webapp!
+8. Run the webapp!
 ```shell
 npm start
 ```
