@@ -55,7 +55,7 @@ pip install -r GoHelpMe/backend/requirements.txt
 pip install --upgrade pip
 ```
 
-4. Download `.env` file (emailed to you) into `webapp/GoHelpMe/backend/GoHelpMe`
+4. Download `.env` file (emailed to you) into the `webapp/GoHelpMe/backend/GoHelpMe` directory
   
 5. Make migrations for back end
 ```shell
