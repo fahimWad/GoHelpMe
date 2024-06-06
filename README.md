@@ -93,10 +93,10 @@ npm start
 mkdir webapp
 mv GoHelpMe.tar.gz ./webapp
 cd webapp
-cd GoHelpMe
 python3 -m venv venv
-tar -xzvf GoHelpMe.tar.gz
 source venv/bin/activate
+tar -xzvf GoHelpMe.tar.gz
+cd GoHelpMe
 ```
 
 2. Install dependencies for the back end
