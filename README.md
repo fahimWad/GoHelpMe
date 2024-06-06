@@ -90,8 +90,10 @@ npm start
 1. Unpack the tarball and cd into directory
 
 ```shell
-tar -xzvf GoHelpMe.tar.gz
+mkdir webapp
+mv GoHelpMe.tar.gz ./webapp
 cd GoHelpMe
+tar -xzvf GoHelpMe.tar.gz
 python3 -m venv venv
 source venv/bin/activate
 ```
