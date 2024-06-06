@@ -80,6 +80,9 @@ npm -f install
 ```shell
 npm start
 ```
+
+9. Go to http://127.0.0.1:3000/ in a browser to view the project
+
 </details>
 
 ## Authors
