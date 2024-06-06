@@ -92,8 +92,9 @@ npm start
 ```shell
 mkdir webapp
 mv GoHelpMe.tar.gz ./webapp
-cd GoHelpMe
+cd webapp
 tar -xzvf GoHelpMe.tar.gz
+cd GoHelpMe
 python3 -m venv venv
 source venv/bin/activate
 ```
