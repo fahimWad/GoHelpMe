@@ -31,7 +31,7 @@ _GoHelpMe_ is a full stack web application that connects users interested in vol
 ## Setup
 In order to run a local instance of GoHelpMe, follow the instructions below.
 
-<details><summary><b>Show instructions</b></summary>
+<details><summary><b>Show instructions (If cloning from GitHub repository)</b></summary>
 
 1. Create a new directory and startup a virtual environment
 
@@ -82,6 +82,52 @@ npm start
 ```
 
 9. Go to http://127.0.0.1:3000/ in a browser to view the project
+
+</details>
+
+<details><summary><b>Show instructions (If using Tarball)</b></summary>
+
+1. Unpack the tarball and cd into directory
+
+```shell
+tar -xzvf GoHelpMe.tar.gz
+cd GoHelpMe
+python3 -m venv venv
+source venv/bin/activate
+```
+
+2. Install dependencies for the back end
+
+```shell
+pip install -r backend/requirements.txt
+pip install --upgrade pip
+```
+  
+4. Make migrations for back end
+```shell
+python backend/manage.py makemigrations
+python backend/manage.py migrate
+```
+
+5. Run the backend server
+```shell
+python backend/manage.py runserver
+```
+
+6. In a separate terminal, install the frontend dependencies
+```shell
+cd GoHelpMe
+source venv/bin/activate
+cd frontend
+npm -f install
+```
+
+7. Run the webapp!
+```shell
+npm start
+```
+
+8. Go to http://127.0.0.1:3000/ in a browser to view the project
 
 </details>
 
