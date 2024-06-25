@@ -137,5 +137,5 @@ npm start
 ## Authors
 _GoHelpMe_ was made as a project for **CS 35L** taught by Professor Paul Eggert at UCLA in Spring 2024. 
 
-**Made by**: [Marc Luzuriaga](mailto:Mjluzuriaga109@gmail.com), [Claire Li](mailto:clairemcli@ucla.edu), [Avinash Swain](mailto:aviswain1@gmail.com), [Evelyn Cho](mailto:yehyeoncho@gmail.com), [Fahim Wadhwania](mailto:fwadhwania@ucla.edu), & [Palak Parikh](mailto:palak.parikh29@gmail.com).
+**Made by**: [Marc Luzuriaga](mailto:Mjluzuriaga109@gmail.com), [Claire Li](mailto:clairemcli@ucla.edu), [Avi Swain](mailto:aswain27@g.ucla.com), [Evelyn Cho](mailto:yehyeoncho@gmail.com), [Fahim Wadhwania](mailto:fwadhwania@ucla.edu), & [Palak Parikh](mailto:palak.parikh29@gmail.com).
 
